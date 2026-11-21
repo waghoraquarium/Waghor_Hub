@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <!-- ===== Mobile Viewport (viewport-fit=cover สำหรับ Notch / Dynamic Island) ===== -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Web App Hub</title>
-  <meta name="description" content="Web App Hub – Dashboard Portal รวมแอปไว้ในที่เดียว" />
+  <title>Waghor Hub | ศูนย์รวมเว็บแอปพลิเคชัน หว้ากอ</title>
+  <meta name="description" content="Waghor Hub – ศูนย์รวมเว็บแอปพลิเคชัน สื่อการเรียนรู้ และระบบงาน อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์" />
 
   <!-- ===== Theme Color ===== -->
-  <meta name="theme-color" content="#F6F8FB" />
+  <meta name="theme-color" content="#0B1F3A" />
   <meta name="color-scheme" content="light" />
 
   <!-- ===== PWA Manifest ===== -->
@@ -17,8 +17,8 @@
   <!-- ===== iOS Safari ===== -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="App Hub" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Waghor Hub" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <meta name="format-detection" content="telephone=no" />
 
@@ -33,22 +33,23 @@
     :root {
       --canvas: #F6F8FB; --surface: #FFFFFF; --surface-2: #EEF2F7;
       --border: #E2E8F0; --border-strong: #CBD5E1;
-      --navy-900: #0B1F3A; --navy-700: #1E3557;
+      --navy-950: #071527; --navy-900: #0B1F3A; --navy-800: #132D50; --navy-700: #1E3557;
       --blue-600: #1D4ED8; --blue-700: #1E40AF;
       --sky-500: #0EA5E9; --sky-100: #E6F3FD; --sky-300: #7DD3FC;
       --orange-500: #F97316; --orange-700: #C2410C; --orange-50: #FFF4EC;
+      --emerald-600: #059669; --emerald-50: #ECFDF5;
       --text: #0B1F3A; --text-2: #475569; --muted: #5B6B80;
-      --badge-live: var(--blue-600); --badge-new: #0369A1;
+      --badge-live: var(--emerald-600); --badge-new: #0284C7;
       --badge-staff: var(--orange-700); --badge-beta: #475569;
       --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
-      --shadow: 0 1px 2px rgba(11,31,58,.04), 0 4px 16px rgba(11,31,58,.05);
-      --shadow-hover: 0 2px 4px rgba(11,31,58,.04), 0 12px 32px rgba(11,31,58,.07);
+      --shadow: 0 1px 3px rgba(11,31,58,.06), 0 4px 16px rgba(11,31,58,.05);
+      --shadow-hover: 0 4px 12px rgba(11,31,58,.08), 0 16px 36px rgba(11,31,58,.09);
       --ease: cubic-bezier(.22,1,.36,1); --dur: 200ms;
       --sat: env(safe-area-inset-top,0px); --sab: env(safe-area-inset-bottom,0px);
       --sal: env(safe-area-inset-left,0px); --sar: env(safe-area-inset-right,0px);
       --font: "IBM Plex Sans Thai","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     }
-    /* 2) BASE (weights 400/500/600 only; sizes 12/14/16+) */
+    /* 2) BASE */
     *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-text-size-adjust: 100%; }
     body {
@@ -67,21 +68,26 @@
     .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
     @media (min-width: 768px) { .container { padding: 0 32px; } }
 
-    /* 3) HEADER — solid, no blur */
+    /* 3) HEADER */
     .app-header {
       position: sticky; top: 0; z-index: 50; padding-top: var(--sat);
       background: var(--surface); border-bottom: 1px solid var(--border);
     }
     .header-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
     .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-    .brand-logo { flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--navy-900); color: var(--sky-300); }
+    .brand-logo {
+      flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--navy-900), var(--blue-700)); color: #fff;
+      box-shadow: 0 2px 8px rgba(11,31,58,0.15);
+    }
+    .brand-logo img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
     .brand-logo svg { width: 22px; height: 22px; }
     .brand-text { min-width: 0; }
-    .brand-title { font-size: 1rem; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .brand-sub { font-size: .75rem; line-height: 1.4; color: var(--muted); }
+    .brand-title { font-size: 1.05rem; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-sub { font-size: .75rem; line-height: 1.4; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .status-chip { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 500; color: var(--text-2); white-space: nowrap; }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky-500); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10B981; }
     .status-chip.offline .status-dot { background: var(--orange-500); }
     .icon-btn {
       position: relative; width: 44px; height: 44px; border-radius: var(--r-md); display: grid; place-items: center;
@@ -99,10 +105,14 @@
     @media (hover: hover) { .icon-btn[data-tip]:hover::after { opacity: 1; } }
 
     /* 4) HERO */
-    .hero { display: grid; gap: 24px; align-items: center; margin: 24px 0 32px; padding: 32px 24px; border-radius: 24px; background: var(--navy-900); color: #fff; }
+    .hero {
+      display: grid; gap: 24px; align-items: center; margin: 24px 0 32px; padding: 32px 24px;
+      border-radius: 24px; background: linear-gradient(145deg, var(--navy-950) 0%, var(--navy-900) 60%, var(--navy-800) 100%);
+      color: #fff; box-shadow: 0 12px 36px rgba(11,31,58,.16);
+    }
     .hero-viz { display: block; width: 100%; max-width: 240px; justify-self: center; overflow: visible; }
     @media (min-width: 640px) { .hero { padding: 40px 32px; } .hero-viz { max-width: 300px; } }
-    @media (min-width: 900px) { .hero { grid-template-columns: 1.15fr .85fr; padding: 48px; } .hero-viz { max-width: 380px; } }
+    @media (min-width: 900px) { .hero { grid-template-columns: 1.2fr .8fr; padding: 44px 48px; } .hero-viz { max-width: 360px; } }
     .pulse { offset-distance: 0%; animation: travel 2.8s var(--ease) infinite; }
     @keyframes travel { 0% { offset-distance: 0%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
     .hero-copy > * { animation: rise 640ms var(--ease) both; }
@@ -110,17 +120,19 @@
     .hero-viz { animation: fadeIn 900ms var(--ease) 200ms both; }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .hero-title { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; color: #fff; }
-    .hero-lead { margin-top: 16px; color: #CBD5E1; line-height: 1.6; max-width: 60ch; font-size: 1rem; color: var(--text-2); }
-    .stats { display: flex; gap: 32px; margin-top: 24px; }
-    .stat dt { font-size: .75rem; color: #A9B8CC; }
-    .stat dd { font-variant-numeric: tabular-nums; font-size: 1.5rem; font-weight: 600; line-height: 1.25; color: #fff; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; background: rgba(14,165,233,.18); color: var(--sky-300); font-size: .8125rem; font-weight: 500; margin-bottom: 12px; }
+    .hero-title { font-size: clamp(1.75rem, 5vw, 2.35rem); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; color: #fff; }
+    .hero-lead { margin-top: 12px; color: #CBD5E1; line-height: 1.6; max-width: 58ch; font-size: .9375rem; }
+    .stats { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
+    .stat dt { font-size: .75rem; color: #94A3B8; }
+    .stat dd { font-variant-numeric: tabular-nums; font-size: 1.5rem; font-weight: 600; line-height: 1.2; color: #fff; }
 
     /* 5) SEARCH + FILTERS */
-    .search-wrap { position: relative; margin: 0 0 16px; max-width: 640px; }
+    .search-row { display: flex; gap: 12px; margin: 0 0 16px; align-items: center; flex-wrap: wrap; }
+    .search-wrap { position: relative; flex: 1; min-width: 240px; max-width: 640px; }
     .search-wrap svg.search-ic { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
     .search-input {
-      width: 100%; height: 52px; padding: 0 48px; border-radius: var(--r-md);
+      width: 100%; height: 50px; padding: 0 48px; border-radius: var(--r-md);
       background: var(--surface); border: 1px solid var(--border-strong); font-size: 1rem;
       transition: border-color var(--dur), box-shadow var(--dur); -webkit-appearance: none; appearance: none;
     }
@@ -139,7 +151,7 @@
     .filter-bar::-webkit-scrollbar { display: none; }
     .chip {
       position: relative; overflow: hidden; flex-shrink: 0; scroll-snap-align: start;
-      height: 44px; padding: 0 16px; border-radius: var(--r-md);
+      height: 42px; padding: 0 16px; border-radius: var(--r-md);
       background: var(--surface); border: 1px solid var(--border); color: var(--text-2);
       font-size: .875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
       transition: background var(--dur), border-color var(--dur), color var(--dur);
@@ -148,73 +160,88 @@
     .chip .count { font-variant-numeric: tabular-nums; font-size: .75rem; font-weight: 500; opacity: .7; }
     .chip[aria-selected="true"] { background: var(--navy-900); border-color: var(--navy-900); color: #fff; }
 
-    /* 6) SECTION + GRID */
-    main { padding-bottom: 24px; }
-    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 16px; }
+    /* 6) APP GRID */
+    main { padding-bottom: 32px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 12px 0 16px; }
     .section-title { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
     .result-count { font-size: .875rem; color: var(--muted); }
     .app-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
     @media (min-width: 640px) { .app-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .app-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+    @media (min-width: 1024px) { .app-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
 
     .app-card {
-      position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 16px;
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
       padding: 20px; border-radius: var(--r-lg); background: var(--surface);
       border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer;
       transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur);
     }
-    @media (hover: hover) { .app-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); } }
+    @media (hover: hover) { .app-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); } }
     .app-card:active { transform: scale(.99); }
-    @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-    .app-icon { width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center; background: var(--icon-bg, var(--blue-700)); }
-    .app-icon svg { width: 24px; height: 24px; color: #fff; }
+    .app-card-main { display: grid; grid-template-columns: auto 1fr; gap: 14px; flex: 1; }
+    .app-icon {
+      width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center;
+      background: var(--icon-bg, var(--blue-700)); flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .app-icon svg { width: 26px; height: 26px; color: #fff; }
     .app-body { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
     .app-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
     .app-title { font-size: 1rem; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .app-desc { font-size: .875rem; color: var(--text-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .app-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
-    .tags { display: flex; gap: 8px; }
+    .app-desc { font-size: .875rem; color: var(--text-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.45; }
+    .app-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .tags { display: flex; gap: 8px; align-items: center; }
     .tag-cat { font-size: .75rem; color: var(--muted); }
     .badge {
       flex-shrink: 0; font-size: .75rem; font-weight: 500; line-height: 1.4; padding: 2px 8px; border-radius: 6px;
-      color: var(--badge-color, var(--muted)); background: color-mix(in srgb, var(--badge-color, #64748B) 10%, transparent);
+      color: var(--badge-color, var(--muted)); background: color-mix(in srgb, var(--badge-color, #64748B) 12%, transparent);
     }
-    .badge--live { --badge-color: var(--badge-live); } .badge--new { --badge-color: var(--badge-new); }
-    .badge--staff { --badge-color: var(--badge-staff); } .badge--beta { --badge-color: var(--badge-beta); }
+    .badge--live { --badge-color: var(--badge-live); }
+    .badge--new { --badge-color: var(--badge-new); }
+    .badge--staff { --badge-color: var(--badge-staff); }
+    .badge--beta { --badge-color: var(--badge-beta); }
+
+    .actions-right { display: flex; align-items: center; gap: 6px; }
+    .btn-card-action {
+      width: 36px; height: 36px; border-radius: var(--r-sm); display: grid; place-items: center;
+      color: var(--muted); background: var(--surface-2); transition: background var(--dur), color var(--dur);
+    }
+    .btn-card-action:hover { background: #E2E8F0; color: var(--navy-900); }
+    .btn-card-action.active-fav { color: #EAB308; background: #FEF9C3; }
+    .btn-card-action svg { width: 17px; height: 17px; }
+
     .btn-launch {
-      position: relative; overflow: hidden; flex-shrink: 0; min-height: 44px; padding: 0 16px; border-radius: var(--r-md);
+      position: relative; overflow: hidden; flex-shrink: 0; height: 38px; padding: 0 14px; border-radius: var(--r-sm);
       border: 1px solid var(--blue-600); background: var(--surface); color: var(--blue-600);
-      font-size: .875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
+      font-size: .875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
       transition: background var(--dur), color var(--dur);
     }
-    .btn-launch svg { width: 14px; height: 14px; }
+    .btn-launch svg { width: 13px; height: 13px; }
     .btn-launch:hover, .app-card:hover .btn-launch { background: var(--blue-600); color: #fff; }
     .ripple { position: absolute; border-radius: 50%; pointer-events: none; background: rgba(29,78,216,.14); transform: scale(0); animation: ripple 600ms var(--ease) forwards; }
     @keyframes ripple { to { transform: scale(2.6); opacity: 0; } }
 
     .empty-state { display: none; text-align: center; padding: 48px 16px; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
     .empty-state.show { display: block; }
-    .empty-state svg { width: 32px; height: 32px; margin: 0 auto 12px; color: var(--muted); }
-    .empty-state strong { display: block; color: var(--text); margin-bottom: 4px; }
+    .empty-state svg { width: 36px; height: 36px; margin: 0 auto 12px; color: var(--muted); }
+    .empty-state strong { display: block; color: var(--text); margin-bottom: 4px; font-size: 1.1rem; }
 
     /* 7) BANNERS */
-    .install-banner { display: none; align-items: center; gap: 12px; margin-top: 24px; padding: 16px; border-radius: var(--r-lg); background: var(--sky-100); border: 1px solid #BFDBFE; }
-    .install-banner.show { display: flex; animation: cardIn 360ms var(--ease); }
+    .install-banner { display: none; align-items: center; gap: 12px; margin-top: 20px; padding: 14px 16px; border-radius: var(--r-lg); background: var(--sky-100); border: 1px solid #BFDBFE; }
+    .install-banner.show { display: flex; }
     .install-banner .ib-icon { width: 40px; height: 40px; border-radius: var(--r-md); flex-shrink: 0; display: grid; place-items: center; background: var(--blue-600); color: #fff; }
     .install-banner .ib-icon svg { width: 20px; height: 20px; }
     .install-banner .ib-text { flex: 1; min-width: 0; font-size: .875rem; }
     .install-banner .ib-text strong { display: block; }
-    .install-banner .ib-text span { color: var(--text-2); }
-    .btn-small { position: relative; overflow: hidden; min-height: 44px; padding: 0 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 500; font-size: .875rem; }
+    .install-banner .ib-text span { color: var(--text-2); font-size: .8125rem; }
+    .btn-small { position: relative; overflow: hidden; min-height: 40px; padding: 0 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 500; font-size: .875rem; }
     .btn-small:hover { background: var(--blue-700); }
-    .btn-ghost-x { width: 44px; height: 44px; display: grid; place-items: center; color: var(--muted); flex-shrink: 0; }
+    .btn-ghost-x { width: 40px; height: 40px; display: grid; place-items: center; color: var(--muted); flex-shrink: 0; }
     .btn-ghost-x svg { width: 16px; height: 16px; }
 
     .inapp-banner {
       position: fixed; z-index: 90; left: calc(12px + var(--sal)); right: calc(12px + var(--sar)); bottom: calc(12px + var(--sab));
       display: none; gap: 12px; align-items: flex-start; padding: 16px; max-width: 560px; margin: 0 auto;
       border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border-strong); border-left: 4px solid var(--orange-500);
-      box-shadow: 0 8px 40px rgba(11,31,58,.08);
+      box-shadow: 0 8px 40px rgba(11,31,58,.12);
     }
     .inapp-banner.show { display: flex; animation: slideUp 360ms var(--ease); }
     @keyframes slideUp { from { transform: translateY(120%); } to { transform: none; } }
@@ -224,38 +251,52 @@
     .inapp-banner .ia-body strong { display: block; margin-bottom: 4px; }
     .inapp-banner .ia-body p { color: var(--text-2); }
     .inapp-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .btn-warn { position: relative; overflow: hidden; min-height: 44px; padding: 0 16px; border-radius: var(--r-md); background: var(--orange-500); color: var(--navy-900); font-weight: 600; font-size: .875rem; }
-    .btn-outline { min-height: 44px; padding: 0 16px; border-radius: var(--r-md); border: 1px solid var(--border-strong); font-size: .875rem; font-weight: 500; }
+    .btn-warn { position: relative; overflow: hidden; min-height: 40px; padding: 0 16px; border-radius: var(--r-md); background: var(--orange-500); color: var(--navy-900); font-weight: 600; font-size: .875rem; }
+    .btn-outline { min-height: 40px; padding: 0 16px; border-radius: var(--r-md); border: 1px solid var(--border-strong); font-size: .875rem; font-weight: 500; }
 
-    /* 8) MODAL (opaque scrim, no blur) */
-    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(11,31,58,.45); opacity: 0; pointer-events: none; transition: opacity var(--dur); display: flex; align-items: flex-end; justify-content: center; }
+    /* 8) MODALS */
+    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(11,31,58,.5); opacity: 0; pointer-events: none; transition: opacity var(--dur); display: flex; align-items: flex-end; justify-content: center; padding: 12px; }
     .modal-backdrop.open { opacity: 1; pointer-events: auto; }
-    .sheet { width: 100%; max-width: 560px; max-height: 88dvh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-bottom: none; border-radius: 24px 24px 0 0; padding: 8px 24px calc(24px + var(--sab)); transform: translateY(100%); transition: transform 320ms var(--ease); overscroll-behavior: contain; }
+    .sheet { width: 100%; max-width: 520px; max-height: 90dvh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 24px 24px 0 0; padding: 16px 24px calc(24px + var(--sab)); transform: translateY(100%); transition: transform 320ms var(--ease); overscroll-behavior: contain; }
     .modal-backdrop.open .sheet { transform: none; }
-    @media (min-width: 640px) { .modal-backdrop { align-items: center; } .sheet { border-radius: 24px; border-bottom: 1px solid var(--border); padding-bottom: 24px; } }
-    .sheet-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border-strong); margin: 8px auto 16px; }
+    @media (min-width: 640px) { .modal-backdrop { align-items: center; } .sheet { border-radius: 24px; border: 1px solid var(--border); padding-bottom: 24px; } }
+    .sheet-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border-strong); margin: 0 auto 16px; }
     .sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .sheet-head h2 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
     .os-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--surface-2); border-radius: var(--r-md); margin-bottom: 16px; }
-    .os-tab { min-height: 44px; border-radius: var(--r-sm); font-weight: 500; font-size: .875rem; color: var(--text-2); transition: background var(--dur), color var(--dur); }
+    .os-tab { min-height: 40px; border-radius: var(--r-sm); font-weight: 500; font-size: .875rem; color: var(--text-2); transition: background var(--dur), color var(--dur); }
     .os-tab[aria-selected="true"] { background: var(--surface); color: var(--navy-900); box-shadow: var(--shadow); }
-    .os-panel { display: none; } .os-panel.active { display: block; animation: cardIn 260ms var(--ease); }
+    .os-panel { display: none; } .os-panel.active { display: block; }
     .steps { list-style: none; display: grid; gap: 8px; counter-reset: step; }
-    .steps li { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-radius: var(--r-md); background: var(--canvas); border: 1px solid var(--border); font-size: .875rem; }
-    .steps li::before { content: counter(step); flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-900); color: #fff; font-weight: 600; font-size: .75rem; }
+    .steps li { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: var(--r-md); background: var(--canvas); border: 1px solid var(--border); font-size: .875rem; }
+    .steps li::before { content: counter(step); flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-900); color: #fff; font-weight: 600; font-size: .75rem; }
     .steps .kbd { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; padding: 2px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border-strong); font-weight: 500; font-size: .75rem; }
     .steps .kbd svg { width: 14px; height: 14px; }
-    .sheet-note { margin-top: 16px; font-size: .75rem; color: var(--muted); }
-    .btn-block { position: relative; overflow: hidden; width: 100%; height: 48px; margin-top: 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 600; }
+    .sheet-note { margin-top: 14px; font-size: .75rem; color: var(--muted); }
+    .btn-block { position: relative; overflow: hidden; width: 100%; height: 46px; margin-top: 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 600; }
     .btn-block:hover { background: var(--blue-700); }
     .btn-block[hidden] { display: none; }
 
+    /* QR Code Modal Content */
+    .qr-modal-body { text-align: center; padding: 8px 0; }
+    .qr-app-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
+    .qr-app-icon { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background: var(--blue-600); color: #fff; }
+    .qr-app-icon svg { width: 20px; height: 20px; }
+    .qr-box {
+      width: 210px; height: 210px; margin: 0 auto 16px; padding: 10px; background: #fff;
+      border: 1px solid var(--border-strong); border-radius: 16px; display: grid; place-items: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+    .qr-url-text { font-size: .8125rem; color: var(--muted); word-break: break-all; margin-bottom: 16px; padding: 8px 12px; background: var(--surface-2); border-radius: var(--r-sm); }
+    .qr-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
     /* 9) TOAST / FOOTER */
-    .toast { position: fixed; z-index: 120; left: 50%; top: calc(var(--sat) + 16px); transform: translate(-50%,-200%); padding: 12px 16px; border-radius: var(--r-md); background: var(--navy-900); color: #fff; font-size: .875rem; font-weight: 500; box-shadow: 0 8px 32px rgba(11,31,58,.08); transition: transform 300ms var(--ease); max-width: calc(100vw - 32px); }
+    .toast { position: fixed; z-index: 120; left: 50%; top: calc(var(--sat) + 16px); transform: translate(-50%,-200%); padding: 10px 18px; border-radius: var(--r-md); background: var(--navy-900); color: #fff; font-size: .875rem; font-weight: 500; box-shadow: 0 8px 32px rgba(11,31,58,.18); transition: transform 300ms var(--ease); max-width: calc(100vw - 32px); }
     .toast.show { transform: translate(-50%,0); }
     .app-footer-main { margin-top: 48px; padding: 24px 0 calc(24px + var(--sab)); border-top: 1px solid var(--border); text-align: center; font-size: .75rem; color: var(--muted); }
     .footer-links { display: flex; justify-content: center; gap: 8px 24px; margin-bottom: 8px; flex-wrap: wrap; }
-    .footer-links a, .footer-links button { color: var(--blue-600); font-weight: 500; font-size: .875rem; min-height: 44px; display: inline-flex; align-items: center; }
+    .footer-links a, .footer-links button { color: var(--blue-600); font-weight: 500; font-size: .875rem; min-height: 40px; display: inline-flex; align-items: center; }
     .version-tag { display: inline-block; margin-top: 4px; font-family: ui-monospace, monospace; }
     body.has-inapp .app-footer-main { padding-bottom: calc(184px + var(--sab)); }
 
@@ -264,20 +305,14 @@
       body { user-select: none; -webkit-user-select: none; }
       .search-input { user-select: text; -webkit-user-select: text; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .pulse { display: none; }
-      *,*::before,*::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }
-    }
   </style>
 </head>
 
 <body>
-  <!-- =====================================================
-       SVG ICON SPRITE (เพิ่มไอคอนใหม่ได้โดยเพิ่ม <symbol>)
-       ===================================================== -->
+  <!-- ===================== SVG SPRITE ===================== -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="3.5"/></symbol>
+      <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 6v6l4 2"/><path d="m4.93 4.93 4.24 4.24"/></symbol>
       <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
       <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
       <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
@@ -287,16 +322,20 @@
       <symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></symbol>
       <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
       <symbol id="i-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></symbol>
-      <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
-      <!-- App icon placeholders -->
-      <symbol id="icon-placeholder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 12h6M12 9v6"/></symbol>
+      <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+      <symbol id="i-star-filled" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+
+      <!-- Category & App Icons -->
+      <symbol id="icon-fish" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.46-3.44 6-7 6s-7.56-2.54-8.5-6Z"/><path d="M18 12v.5"/><path d="M16 17.93a10.07 10.07 0 0 1-5-1.93"/><path d="m2 16 3-4-3-4"/></symbol>
+      <symbol id="icon-game" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="6"/></symbol>
+      <symbol id="icon-quiz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></symbol>
+      <symbol id="icon-vote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
       <symbol id="icon-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
       <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
-      <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
-      <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
       <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
-      <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
-      <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+      <symbol id="icon-telescope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 10 3 3"/><path d="m13 14 8-8"/><path d="m6 14 3 3"/><path d="M2 18l3 3"/><path d="M14 3l7 7-4 4-7-7z"/><path d="M10 10l-4 4-3-3 4-4z"/><circle cx="12" cy="18" r="1"/><path d="M12 19v3"/><path d="M9 22h6"/></symbol>
     </defs>
   </svg>
 
@@ -305,17 +344,20 @@
     <div class="container">
       <div class="header-top">
         <div class="brand">
-          <div class="brand-logo" aria-hidden="true"><svg><use href="#i-logo"/></svg></div>
+          <div class="brand-logo" aria-hidden="true">
+            <img src="icons/icon-192.png" alt="Waghor Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+            <svg style="display:none"><use href="#icon-fish"/></svg>
+          </div>
           <div class="brand-text">
-            <h1 class="brand-title" id="hubTitle">Hub Name Placeholder</h1>
-            <p class="brand-sub" id="lastUpdated">อัปเดตล่าสุด: —</p>
+            <h1 class="brand-title" id="hubTitle">Waghor Hub</h1>
+            <p class="brand-sub" id="hubSubtitle">อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ</p>
           </div>
         </div>
         <div class="header-actions">
           <span class="status-chip" id="netStatus" role="status" aria-live="polite">
             <span class="status-dot"></span><span class="status-label">ออนไลน์</span>
           </span>
-          <button class="icon-btn hide-in-standalone" id="openInstallGuide" aria-label="วิธีติดตั้งแอป" data-tip="วิธีติดตั้งแอป">
+          <button class="icon-btn hide-in-standalone" id="openInstallGuide" aria-label="วิธีติดตั้งแอป" data-tip="วิธีติดตั้งลงมือถือ">
             <svg><use href="#i-download"/></svg>
           </button>
         </div>
@@ -325,67 +367,139 @@
 
   <!-- ===================== MAIN ===================== -->
   <main class="container">
-    <!-- Hero -->
+    <!-- Hero Banner -->
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <h2 class="hero-title" id="heroTitle">ทุกแอปที่คุณใช้งาน<br />เข้าถึงได้จากที่เดียว</h2>
-        <p class="hero-lead">ศูนย์รวมแอปพลิเคชันขององค์กร เลือกแอปที่ต้องการแล้วเปิดใช้งานได้ทันที</p>
+        <div class="hero-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          ศูนย์นวัตกรรมดิจิทัลหว้ากอ
+        </div>
+        <h2 class="hero-title" id="heroTitle">เชื่อมโยงทุกนวัตกรรม<br />และสื่อการเรียนรู้สู่ทุกคน</h2>
+        <p class="hero-lead">ศูนย์รวมเว็บแอปพลิเคชัน สื่อการเรียนรู้โลกใต้ทะเล ดาราศาสตร์ และระบบบริหารจัดการ อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์</p>
         <dl class="stats">
-          <div class="stat"><dt>แอปทั้งหมด</dt><dd id="statApps">0</dd></div>
+          <div class="stat"><dt>แอปพลิเคชัน</dt><dd id="statApps">0</dd></div>
           <div class="stat"><dt>หมวดหมู่</dt><dd id="statCats">0</dd></div>
+          <div class="stat"><dt>สถานะระบบ</dt><dd style="font-size:1.15rem; color:#38BDF8">พร้อมใช้งาน</dd></div>
         </dl>
       </div>
-      <svg class="hero-viz" viewBox="0 0 360 280" aria-hidden="true" focusable="false"><line x1="180" y1="140" x2="290" y2="140" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="235" y2="218" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="125" y2="218" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="70" y2="140" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="125" y2="62" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="235" y2="62" stroke="#3B5B85" stroke-width="1.5"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L290 140');animation-delay:0ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L235 218');animation-delay:450ms"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L125 218');animation-delay:900ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L70 140');animation-delay:1350ms"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L125 62');animation-delay:1800ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L235 62');animation-delay:2250ms"/><circle cx="180" cy="140" r="38" fill="#1D4ED8"/><use href="#i-logo" x="164" y="124" width="32" height="32" style="color:#fff"/><g><circle cx="290" cy="140" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="282" y="132" width="16" height="16" rx="4" fill="#1D4ED8"/></g><g><circle cx="235" cy="218" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="227" y="210" width="16" height="16" rx="4" fill="#0EA5E9"/></g><g><circle cx="125" cy="218" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="117" y="210" width="16" height="16" rx="4" fill="#EA580C"/></g><g><circle cx="70" cy="140" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="62" y="132" width="16" height="16" rx="4" fill="#0B1F3A"/></g><g><circle cx="125" cy="62" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="117" y="54" width="16" height="16" rx="4" fill="#1E40AF"/></g><g><circle cx="235" cy="62" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="227" y="54" width="16" height="16" rx="4" fill="#0284C7"/></g></svg>
+
+      <!-- Animated Science & Ocean SVG Motif -->
+      <svg class="hero-viz" viewBox="0 0 360 280" aria-hidden="true" focusable="false">
+        <line x1="180" y1="140" x2="290" y2="140" stroke="#334E7A" stroke-width="1.5"/>
+        <line x1="180" y1="140" x2="235" y2="218" stroke="#334E7A" stroke-width="1.5"/>
+        <line x1="180" y1="140" x2="125" y2="218" stroke="#334E7A" stroke-width="1.5"/>
+        <line x1="180" y1="140" x2="70" y2="140" stroke="#334E7A" stroke-width="1.5"/>
+        <line x1="180" y1="140" x2="125" y2="62" stroke="#334E7A" stroke-width="1.5"/>
+        <line x1="180" y1="140" x2="235" y2="62" stroke="#334E7A" stroke-width="1.5"/>
+        
+        <circle class="pulse" r="4" fill="#F97316" style="offset-path:path('M180 140L290 140');animation-delay:0ms"/>
+        <circle class="pulse" r="4" fill="#7DD3FC" style="offset-path:path('M180 140L235 218');animation-delay:450ms"/>
+        <circle class="pulse" r="4" fill="#F97316" style="offset-path:path('M180 140L125 218');animation-delay:900ms"/>
+        <circle class="pulse" r="4" fill="#7DD3FC" style="offset-path:path('M180 140L70 140');animation-delay:1350ms"/>
+        <circle class="pulse" r="4" fill="#F97316" style="offset-path:path('M180 140L125 62');animation-delay:1800ms"/>
+        <circle class="pulse" r="4" fill="#7DD3FC" style="offset-path:path('M180 140L235 62');animation-delay:2250ms"/>
+
+        <!-- Center Waghor Node -->
+        <circle cx="180" cy="140" r="38" fill="#1D4ED8"/>
+        <circle cx="180" cy="140" r="46" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <use href="#icon-fish" x="164" y="124" width="32" height="32" style="color:#fff"/>
+
+        <!-- Satellite Nodes -->
+        <g><circle cx="290" cy="140" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-game" x="279" y="129" width="22" height="22" style="color:#1D4ED8"/></g>
+        <g><circle cx="235" cy="218" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-vote" x="224" y="207" width="22" height="22" style="color:#0EA5E9"/></g>
+        <g><circle cx="125" cy="218" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-quiz" x="114" y="207" width="22" height="22" style="color:#EA580C"/></g>
+        <g><circle cx="70" cy="140" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-shield" x="59" y="129" width="22" height="22" style="color:#0B1F3A"/></g>
+        <g><circle cx="125" cy="62" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-doc" x="114" y="51" width="22" height="22" style="color:#059669"/></g>
+        <g><circle cx="235" cy="62" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-chart" x="224" y="51" width="22" height="22" style="color:#0284C7"/></g>
+      </svg>
     </section>
 
     <!-- Install Banner -->
     <div class="install-banner hide-in-standalone" id="installBanner" role="region" aria-label="ติดตั้งแอป">
       <div class="ib-icon"><svg><use href="#i-plus-square"/></svg></div>
       <div class="ib-text">
-        <strong>เพิ่มลงหน้าจอโฮม</strong>
-        <span>เปิดใช้งานได้ทันทีเหมือนแอปจริง</span>
+        <strong>เพิ่ม Waghor Hub ลงหน้าจอโฮม</strong>
+        <span>เปิดใช้งานรวดเร็ว เต็มหน้าจอ ไม่ต้องพิมพ์ค้นหาซ้ำ</span>
       </div>
       <button class="btn-small" id="installBannerBtn" data-ripple>ติดตั้ง</button>
       <button class="btn-ghost-x" id="installBannerClose" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
     </div>
 
-    <!-- Search -->
-    <div class="search-wrap" role="search">
-      <label for="searchInput" class="sr-only">ค้นหาแอป</label>
-      <svg class="search-ic"><use href="#i-search"/></svg>
-      <input type="search" id="searchInput" class="search-input"
-             placeholder="ค้นหาแอป..." autocomplete="off" enterkeyhint="search" />
-      <button class="search-clear" id="searchClear" aria-label="ล้างคำค้นหา"><svg><use href="#i-x"/></svg></button>
+    <!-- Search Bar -->
+    <div class="search-row">
+      <div class="search-wrap" role="search">
+        <label for="searchInput" class="sr-only">ค้นหาแอปพลิเคชัน</label>
+        <svg class="search-ic"><use href="#i-search"/></svg>
+        <input type="search" id="searchInput" class="search-input"
+               placeholder="ค้นหาแอป, เกม, สื่อการเรียนรู้, หรือระบบงาน..." autocomplete="off" enterkeyhint="search" />
+        <button class="search-clear" id="searchClear" aria-label="ล้างคำค้นหา"><svg><use href="#i-x"/></svg></button>
+      </div>
     </div>
 
-    <!-- Category Filter -->
+    <!-- Category Filter Bar -->
     <nav class="filter-bar" id="filterBar" role="tablist" aria-label="หมวดหมู่แอป"></nav>
 
-    <!-- App Cards -->
+    <!-- App Cards Grid -->
     <section aria-labelledby="sectionTitle">
       <div class="section-head">
         <h2 class="section-title" id="sectionTitle">แอปทั้งหมด</h2>
         <span class="result-count" id="resultCount" aria-live="polite"></span>
       </div>
+
       <div class="app-grid" id="appGrid"></div>
+
+      <!-- Empty State -->
       <div class="empty-state" id="emptyState">
         <svg><use href="#i-empty"/></svg>
-        <strong>ไม่พบแอปที่ค้นหา</strong>
-        ลองใช้คำค้นอื่น หรือเลือกหมวดหมู่ "ทั้งหมด"
+        <strong>ไม่พบแอปที่ต้องการค้นหา</strong>
+        <p>ลองใช้คำค้นหาอื่น หรือเลือกดูหมวดหมู่ "ทั้งหมด"</p>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="app-footer-main">
       <div class="footer-links">
-        <a href="#" id="supportLink">ติดต่อช่วยเหลือ</a>
-        <button type="button" id="footerInstall" class="hide-in-standalone">วิธีติดตั้ง</button>
+        <a href="https://www.waghor.go.th" target="_blank" rel="noopener" id="supportLink">เว็บไซต์อุทยานฯ หว้ากอ</a>
+        <button type="button" id="footerInstall" class="hide-in-standalone">วิธีติดตั้งบนมือถือ</button>
         <button type="button" id="checkUpdate">ตรวจสอบอัปเดต</button>
       </div>
-      <p id="footerCredit">© <span id="year"></span> Organization Placeholder</p>
-      <span class="version-tag" id="versionTag">v0.0.0</span>
+      <p id="footerCredit">© <span id="year"></span> อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จังหวัดประจวบคีรีขันธ์</p>
+      <span class="version-tag" id="versionTag">v1.1.0</span>
     </footer>
   </main>
+
+  <!-- ===================== QR CODE MODAL ===================== -->
+  <div class="modal-backdrop" id="qrModal" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <h2 id="qrModalTitle">สแกนเปิดใช้งานบนมือถือ</h2>
+        <button class="icon-btn" id="closeQrModal" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
+      </div>
+
+      <div class="qr-modal-body">
+        <div class="qr-app-header">
+          <div class="qr-app-icon" id="qrAppIcon"></div>
+          <strong id="qrAppTitle" style="font-size:1.1rem">ชื่อแอป</strong>
+        </div>
+
+        <div class="qr-box">
+          <img id="qrImg" src="" alt="QR Code">
+        </div>
+
+        <div class="qr-url-text" id="qrUrlText">https://...</div>
+
+        <div class="qr-actions">
+          <button class="btn-outline" id="qrCopyBtn" style="display:flex;align-items:center;justify-content:center;gap:6px">
+            <svg width="16" height="16"><use href="#i-copy"/></svg> คัดลอกลิงก์
+          </button>
+          <a class="btn-small" id="qrOpenBtn" href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px">
+            <svg width="14" height="14"><use href="#i-arrow"/></svg> เปิดใช้งาน
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===================== IN-APP BROWSER BANNER ===================== -->
   <div class="inapp-banner" id="inAppBanner" role="alert">
@@ -406,7 +520,7 @@
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="sheet-handle"></div>
       <div class="sheet-head">
-        <h2 id="modalTitle">เพิ่มลงหน้าจอโฮม</h2>
+        <h2 id="modalTitle">วิธีเพิ่ม Waghor Hub ลงหน้าจอโฮม</h2>
         <button class="icon-btn" id="closeModal" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
       </div>
 
@@ -434,38 +548,39 @@
         <button class="btn-block" id="nativeInstallBtn" hidden data-ripple>ติดตั้งทันที</button>
       </div>
 
-      <p class="sheet-note">หลังติดตั้งแล้ว ไอคอนจะปรากฏบนหน้าจอโฮม และเปิดแบบเต็มจอเหมือนแอปทั่วไป</p>
+      <p class="sheet-note">หลังติดตั้งแล้ว ไอคอนจะปรากฏบนหน้าจอโฮม เปิดแบบเต็มจอเสมือนแอปจริง รวดเร็วและสะดวกยิ่งขึ้น</p>
     </div>
   </div>
 
-  <!-- Toast -->
+  <!-- Toast Notification -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- =====================================================================
+       CONFIG & APPLICATION LOGIC
+       ===================================================================== -->
   <script>
-  /* =====================================================================
-     ███  DATA SECTION – แก้ไขข้อมูลจริงที่ส่วนนี้เท่านั้น  ███
-     ===================================================================== */
-
-  /** ตั้งค่าทั่วไปของ Hub */
+  /** ตั้งค่าทั่วไปของ Waghor Hub */
   const HUB_CONFIG = {
-    name: "Hub Name Placeholder",
-    version: "1.0.0",
-    lastUpdated: "2025-01-01",
-    credit: "Organization Placeholder",
-    supportUrl: "#",              // เช่น "https://line.me/R/ti/p/@xxxx" หรือ "mailto:help@example.com"
-    openLinksInNewTab: false      // false = เปิดในหน้าเดิม (เหมาะกับ standalone)
+    name: "Waghor Hub",
+    subtitle: "อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์",
+    version: "1.1.0",
+    lastUpdated: "21 พ.ย. 2026",
+    credit: "อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จังหวัดประจวบคีรีขันธ์",
+    supportUrl: "https://www.waghor.go.th",
+    openLinksInNewTab: true  // true = เปิดแอปในแท็บใหม่เพื่อให้หน้า Hub คงอยู่ตลอดเวลา
   };
 
-  /** หมวดหมู่ (id ต้องตรงกับ category ใน APPS_DATA) */
+  /** หมวดหมู่แอปพลิเคชัน */
   const CATEGORIES = [
-    { id: "all",    label: "ทั้งหมด" },
-    { id: "public", label: "ทั่วไป" },
-    { id: "staff",  label: "สำหรับเจ้าหน้าที่" },
-    { id: "tools",  label: "เครื่องมือ" },
-    { id: "report", label: "รายงาน" }
+    { id: "all",        label: "ทั้งหมด" },
+    { id: "favorite",   label: "⭐ ที่ใช้บ่อย" },
+    { id: "learn_game", label: "🎮 กิจกรรม & เกม" },
+    { id: "exhibition", label: "🐟 นิทรรศการ & สัตว์น้ำ" },
+    { id: "staff",      label: "💼 สำหรับเจ้าหน้าที่" },
+    { id: "survey",     label: "📊 แบบประเมิน & รายงาน" }
   ];
 
-  /** รูปแบบ Badge ที่รองรับ: "Live" | "New" | "Staff Only" | "Beta" | "" (ไม่แสดง) */
+  /** รูปแบบ Badge */
   const BADGE_STYLES = {
     "Live": "badge--live",
     "New": "badge--new",
@@ -474,37 +589,119 @@
   };
 
   /**
-   * ข้อมูลแอป
-   * - icon: id ของ <symbol> ใน SVG sprite (เช่น "icon-doc") หรือ URL รูปภาพ (เช่น "icons/app1.png")
-   * - color: (ไม่บังคับ) สีพื้นหลังไอคอน
-   * - keywords: (ไม่บังคับ) คำค้นเพิ่มเติม
+   * รายการแอปพลิเคชันทั้งหมดของหว้ากอ
+   * สามารถแก้ไข URL หรือเพิ่มแอปใหม่ได้ที่รายการนี้
    */
   const APPS_DATA = [
-    { id: 1, title: "App Name Placeholder 1", desc: "Short description placeholder สำหรับอธิบายการใช้งานแอปโดยย่อ", icon: "icon-doc",      category: "public", url: "#", badge: "Live",       color: "#1D4ED8" },
-    { id: 2, title: "App Name Placeholder 2", desc: "Short description placeholder...",                                 icon: "icon-calendar", category: "public", url: "#", badge: "New",        color: "#0EA5E9" },
-    { id: 3, title: "App Name Placeholder 3", desc: "Short description placeholder...",                                 icon: "icon-shield",   category: "staff",  url: "#", badge: "Staff Only", color: "#EA580C" },
-    { id: 4, title: "App Name Placeholder 4", desc: "Short description placeholder...",                                 icon: "icon-chart",    category: "report", url: "#", badge: "Live",       color: "#0B1F3A" },
-    { id: 5, title: "App Name Placeholder 5", desc: "Short description placeholder...",                                 icon: "icon-settings", category: "tools",  url: "#", badge: "Beta",       color: "#334E7A" },
-    { id: 6, title: "App Name Placeholder 6", desc: "Short description placeholder...",                                 icon: "icon-user",     category: "staff",  url: "#", badge: "Staff Only", color: "#1E40AF" },
-    { id: 7, title: "App Name Placeholder 7", desc: "Short description placeholder...",                                 icon: "icon-chat",     category: "public", url: "#", badge: "",           color: "#0284C7" },
-    { id: 8, title: "App Name Placeholder 8", desc: "Short description placeholder...",                                 icon: "icon-placeholder", category: "tools", url: "#", badge: "New" }
+    {
+      id: "aqua-quest",
+      title: "WAGHOR AQUA QUEST",
+      desc: "ภารกิจพิชิตโลกใต้น้ำ เดินสำรวจและสะสมตราประทับดิจิทัลในพิพิธภัณฑ์สัตว์น้ำหว้ากอ",
+      icon: "icon-fish",
+      category: "learn_game",
+      url: "https://waghoraquarium.github.io/waghoraquarium/",
+      badge: "Live",
+      color: "#0284C7",
+      keywords: ["aqua", "quest", "เกม", "พาสปอร์ต", "passport", "หว้ากอ", "สัตว์น้ำ", "ภารกิจ", "โลกใต้น้ำ"]
+    },
+    {
+      id: "best-tank",
+      title: "โหวตตู้ปลาในดวงใจ (Best Tank)",
+      desc: "ร่วมโหวตตู้จัดแสดงปลาและสัตว์ทะเลที่คุณชื่นชอบมากที่สุด พร้อมดูผลคะแนนแบบเรียลไทม์",
+      icon: "icon-vote",
+      category: "exhibition",
+      url: "#",
+      badge: "New",
+      color: "#0EA5E9",
+      keywords: ["vote", "โหวต", "ตู้ปลา", "best tank", "แทงค์", "ปลาที่ชอบ"]
+    },
+    {
+      id: "quiz-challenge",
+      title: "Waghor Quiz Challenge",
+      desc: "เกมตอบคำถามประลองความรู้ดาราศาสตร์ วิทยาศาสตร์ และความหลากหลายทางชีวภาพ",
+      icon: "icon-quiz",
+      category: "learn_game",
+      url: "#",
+      badge: "Live",
+      color: "#1D4ED8",
+      keywords: ["quiz", "ตอบคำถาม", "เกม", "ความรู้", "วิทยาศาสตร์", "ดาราศาสตร์", "kiosk"]
+    },
+    {
+      id: "marine-match",
+      title: "เกมจับคู่สัตว์น้ำหว้ากอ",
+      desc: "เกมฝึกความจำและรู้จักสัตว์น้ำหายากในอ่าวไทย สำหรับเด็ก เยาวชน และครอบครัว",
+      icon: "icon-game",
+      category: "learn_game",
+      url: "#",
+      badge: "Beta",
+      color: "#F97316",
+      keywords: ["จับคู่", "เกม", "match", "เด็ก", "สัตว์น้ำ", "เกมจับคู่"]
+    },
+    {
+      id: "wg-smart-saraban",
+      title: "WG Smart & e-Saraban Cloud",
+      desc: "ระบบติดตามหนังสือราชการ e-Saraban อัตโนมัติ แจ้งเตือนผ่าน LINE และสั่งพิมพ์เอกสารอัตโนมัติ",
+      icon: "icon-shield",
+      category: "staff",
+      url: "#",
+      badge: "Staff Only",
+      color: "#0B1F3A",
+      keywords: ["saraban", "สารบรรณ", "หนังสือราชการ", "line", "smart", "เจ้าหน้าที่", "ออโต้ปริ้นท์"]
+    },
+    {
+      id: "visit-stats",
+      title: "ระบบสถิตินำชม & บันทึกข้อมูล",
+      desc: "บันทึกและตรวจสอบสถิติการเข้าชมนิทรรศการ คณะนักเรียน และประชาชนทั่วไป",
+      icon: "icon-chart",
+      category: "staff",
+      url: "#",
+      badge: "Staff Only",
+      color: "#1E3557",
+      keywords: ["สถิติ", "นำชม", "คณะเข้าชม", "บันทึก", "รายงาน"]
+    },
+    {
+      id: "satisfaction-survey",
+      title: "แบบประเมินความพึงพอใจการเข้าชม",
+      desc: "แบบสำรวจความคิดเห็นและความพึงพอใจของผู้รับบริการ เพื่อนำไปพัฒนาการให้บริการของอุทยานฯ",
+      icon: "icon-doc",
+      category: "survey",
+      url: "#",
+      badge: "Live",
+      color: "#059669",
+      keywords: ["ประเมิน", "ความพึงพอใจ", "survey", "แบบสอบถาม", "ความเห็น"]
+    },
+    {
+      id: "media-catalog",
+      title: "ทำเนียบสื่อและนิทรรศการ",
+      desc: "คลังข้อมูลสื่อวิชาการ เอกสารเผยแพร่ และรายละเอียดนิทรรศการพิพิธภัณฑ์สัตว์น้ำหว้ากอ",
+      icon: "icon-telescope",
+      category: "exhibition",
+      url: "#",
+      badge: "Live",
+      color: "#4338CA",
+      keywords: ["สื่อ", "นิทรรศการ", "พิพิธภัณฑ์", "วิชาการ", "เอกสาร"]
+    }
   ];
 
-  /* =====================================================================
-     ███  APPLICATION LOGIC – โดยปกติไม่ต้องแก้ไขส่วนนี้  ███
-     ===================================================================== */
   (() => {
     "use strict";
 
     const $ = (s, c = document) => c.querySelector(s);
     const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-    const state = { category: "all", query: "" };
+    const state = {
+      category: "all",
+      query: "",
+      favorites: JSON.parse(localStorage.getItem("waghor_favorites") || "[]")
+    };
 
     const el = {
       grid: $("#appGrid"), filterBar: $("#filterBar"), search: $("#searchInput"),
       searchClear: $("#searchClear"), empty: $("#emptyState"), count: $("#resultCount"),
-      sectionTitle: $("#sectionTitle"), toast: $("#toast")
+      sectionTitle: $("#sectionTitle"), toast: $("#toast"),
+      qrModal: $("#qrModal"), qrImg: $("#qrImg"), qrTitle: $("#qrAppTitle"),
+      qrAppIcon: $("#qrAppIcon"), qrUrlText: $("#qrUrlText"), qrOpenBtn: $("#qrOpenBtn"),
+      qrCopyBtn: $("#qrCopyBtn"), closeQrModal: $("#closeQrModal")
     };
 
     /* ---------- Utils ---------- */
@@ -515,7 +712,7 @@
     const catLabel = id => (CATEGORIES.find(c => c.id === id) || {}).label || id;
 
     let toastTimer;
-    function toast(msg, ms = 2200) {
+    function toast(msg, ms = 2400) {
       el.toast.textContent = msg;
       el.toast.classList.add("show");
       clearTimeout(toastTimer);
@@ -525,20 +722,43 @@
     /* ---------- Init Static Content ---------- */
     function initConfig() {
       $("#hubTitle").textContent = HUB_CONFIG.name;
-      $("#lastUpdated").textContent = `อัปเดตล่าสุด: ${HUB_CONFIG.lastUpdated}`;
+      $("#hubSubtitle").textContent = HUB_CONFIG.subtitle;
       $("#versionTag").textContent = `v${HUB_CONFIG.version}`;
       $("#year").textContent = new Date().getFullYear();
       $("#footerCredit").innerHTML = `© ${new Date().getFullYear()} ${escapeHTML(HUB_CONFIG.credit)}`;
       $("#supportLink").href = HUB_CONFIG.supportUrl;
-      document.title = HUB_CONFIG.name;
+      document.title = `${HUB_CONFIG.name} | ${HUB_CONFIG.subtitle}`;
       $("#statApps").textContent = APPS_DATA.length;
-      $("#statCats").textContent = CATEGORIES.length - 1;
+      $("#statCats").textContent = CATEGORIES.length - 2; // หัก all กับ favorite
+    }
+
+    /* ---------- Favorite Toggle ---------- */
+    function toggleFavorite(appId) {
+      const idx = state.favorites.indexOf(appId);
+      if (idx > -1) {
+        state.favorites.splice(idx, 1);
+        toast("ยกเลิกปักหมุดแล้ว");
+      } else {
+        state.favorites.push(appId);
+        toast("⭐ ปักหมุดในรายการโปรดแล้ว");
+      }
+      localStorage.setItem("waghor_favorites", JSON.stringify(state.favorites));
+      renderFilters();
+      renderApps();
     }
 
     /* ---------- Render: Category Filter ---------- */
     function renderFilters() {
       el.filterBar.innerHTML = CATEGORIES.map(cat => {
-        const count = cat.id === "all" ? APPS_DATA.length : APPS_DATA.filter(a => a.category === cat.id).length;
+        let count = 0;
+        if (cat.id === "all") {
+          count = APPS_DATA.length;
+        } else if (cat.id === "favorite") {
+          count = state.favorites.length;
+        } else {
+          count = APPS_DATA.filter(a => a.category === cat.id).length;
+        }
+
         return `<button class="chip" role="tab" data-ripple data-cat="${escapeHTML(cat.id)}"
                   aria-selected="${cat.id === state.category}">
                   ${escapeHTML(cat.label)}<span class="count">${count}</span>
@@ -548,18 +768,26 @@
 
     /* ---------- Render: Icon ---------- */
     function renderIcon(icon) {
-      if (!icon) icon = "icon-placeholder";
+      if (!icon) icon = "icon-fish";
       const isImg = /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(icon) || icon.startsWith("http") || icon.startsWith("data:");
       return isImg
         ? `<img src="${escapeHTML(icon)}" alt="" width="32" height="32" loading="lazy" style="border-radius:8px">`
         : `<svg aria-hidden="true"><use href="#${escapeHTML(icon)}"/></svg>`;
     }
 
-    /* ---------- Render: App Cards (วนลูปจาก APPS_DATA) ---------- */
+    /* ---------- Render: App Cards ---------- */
     function getFilteredApps() {
       const q = normalize(state.query);
       return APPS_DATA.filter(app => {
-        const matchCat = state.category === "all" || app.category === state.category;
+        let matchCat = false;
+        if (state.category === "all") {
+          matchCat = true;
+        } else if (state.category === "favorite") {
+          matchCat = state.favorites.includes(app.id);
+        } else {
+          matchCat = app.category === state.category;
+        }
+
         if (!matchCat) return false;
         if (!q) return true;
         const haystack = normalize([app.title, app.desc, app.badge, catLabel(app.category), ...(app.keywords || [])].join(" "));
@@ -573,22 +801,39 @@
 
       el.grid.innerHTML = apps.map((app, i) => {
         const badgeClass = BADGE_STYLES[app.badge] || "";
+        const isFav = state.favorites.includes(app.id);
+
         return `
-          <article class="app-card" data-ripple data-url="${escapeHTML(app.url)}" style="--i:${i}">
-            <div class="app-icon" style="${app.color ? `--icon-bg:${escapeHTML(app.color)}` : ""}">
-              ${renderIcon(app.icon)}
-            </div>
-            <div class="app-body">
-              <div class="app-top">
-                <h3 class="app-title">${escapeHTML(app.title)}</h3>
-                ${app.badge ? `<span class="badge ${badgeClass}">${escapeHTML(app.badge)}</span>` : ""}
+          <article class="app-card" data-id="${escapeHTML(app.id)}" data-url="${escapeHTML(app.url)}" style="--i:${i}">
+            <div class="app-card-main">
+              <div class="app-icon" style="${app.color ? `--icon-bg:${escapeHTML(app.color)}` : ""}">
+                ${renderIcon(app.icon)}
               </div>
-              <p class="app-desc">${escapeHTML(app.desc)}</p>
-              <div class="app-footer">
-                <div class="tags"><span class="tag-cat">${escapeHTML(catLabel(app.category))}</span></div>
-                <a class="btn-launch" href="${escapeHTML(app.url)}"${target} data-ripple
+              <div class="app-body">
+                <div class="app-top">
+                  <h3 class="app-title">${escapeHTML(app.title)}</h3>
+                  ${app.badge ? `<span class="badge ${badgeClass}">${escapeHTML(app.badge)}</span>` : ""}
+                </div>
+                <p class="app-desc">${escapeHTML(app.desc)}</p>
+              </div>
+            </div>
+
+            <div class="app-footer">
+              <div class="tags">
+                <span class="tag-cat">${escapeHTML(catLabel(app.category))}</span>
+              </div>
+              <div class="actions-right">
+                <button class="btn-card-action ${isFav ? 'active-fav' : ''}" data-action="fav" data-id="${escapeHTML(app.id)}"
+                        aria-label="${isFav ? 'ยกเลิกรายการโปรด' : 'เพิ่มในรายการโปรด'}" title="ปักหมุดที่ใช้บ่อย">
+                  <svg><use href="${isFav ? '#i-star-filled' : '#i-star'}"/></svg>
+                </button>
+                <button class="btn-card-action" data-action="qr" data-id="${escapeHTML(app.id)}"
+                        aria-label="แสดง QR Code" title="แชร์ QR Code เปิดบนมือถือ">
+                  <svg><use href="#i-qr"/></svg>
+                </button>
+                <a class="btn-launch" href="${escapeHTML(app.url)}"${target} data-action="launch"
                    aria-label="เปิดใช้งาน ${escapeHTML(app.title)}">
-                  เปิดใช้งาน
+                  เปิดแอป <svg><use href="#i-arrow"/></svg>
                 </a>
               </div>
             </div>
@@ -600,8 +845,36 @@
       el.sectionTitle.textContent = state.category === "all" ? "แอปทั้งหมด" : catLabel(state.category);
     }
 
-    /* ---------- Events: Filter / Search / Card ---------- */
+    /* ---------- QR Code Modal Flow ---------- */
+    function openQrModal(app) {
+      let url = app.url;
+      if (!url || url === "#") {
+        url = location.href;
+      }
+      el.qrTitle.textContent = app.title;
+      el.qrAppIcon.innerHTML = renderIcon(app.icon);
+      if (app.color) el.qrAppIcon.style.background = app.color;
+      el.qrUrlText.textContent = url;
+      el.qrOpenBtn.href = url;
+
+      // สร้าง QR Code ผ่าน API สากล
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=4&data=${encodeURIComponent(url)}`;
+      el.qrImg.src = qrApiUrl;
+
+      el.qrModal.classList.add("open");
+      el.qrModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeQrModal() {
+      el.qrModal.classList.remove("open");
+      el.qrModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    /* ---------- Event Handlers ---------- */
     function bindEvents() {
+      // Category Tab Change
       el.filterBar.addEventListener("click", e => {
         const chip = e.target.closest(".chip");
         if (!chip) return;
@@ -611,7 +884,8 @@
         renderApps();
       });
 
-      const onSearch = debounce(() => { state.query = el.search.value; renderApps(); }, 100);
+      // Search Input
+      const onSearch = debounce(() => { state.query = el.search.value; renderApps(); }, 80);
       el.search.addEventListener("input", () => {
         el.searchClear.classList.toggle("show", el.search.value.length > 0);
         onSearch();
@@ -623,37 +897,71 @@
         renderApps(); el.search.focus();
       });
 
-      // คลิกทั้งการ์ด = เปิดแอป
+      // Card Actions
       el.grid.addEventListener("click", e => {
-        if (e.target.closest(".btn-launch")) return;
+        const favBtn = e.target.closest("[data-action='fav']");
+        if (favBtn) {
+          e.stopPropagation();
+          toggleFavorite(favBtn.dataset.id);
+          return;
+        }
+
+        const qrBtn = e.target.closest("[data-action='qr']");
+        if (qrBtn) {
+          e.stopPropagation();
+          const app = APPS_DATA.find(a => a.id === qrBtn.dataset.id);
+          if (app) openQrModal(app);
+          return;
+        }
+
+        const launchBtn = e.target.closest("[data-action='launch']");
+        if (launchBtn) {
+          const href = launchBtn.getAttribute("href");
+          if (!href || href === "#") {
+            e.preventDefault();
+            toast("แอปนี้ยังไม่ได้ตั้งค่า URL ปลายทาง");
+          }
+          return;
+        }
+
+        // คลิกที่ตัวการ์ดเพื่อเปิดแอป
         const card = e.target.closest(".app-card");
         if (!card) return;
         const url = card.dataset.url;
-        if (!url || url === "#") { toast("แอปนี้ยังไม่ได้ตั้งค่าลิงก์"); return; }
+        if (!url || url === "#") {
+          toast("แอปนี้ยังไม่ได้ตั้งค่า URL ปลายทาง");
+          return;
+        }
         HUB_CONFIG.openLinksInNewTab ? window.open(url, "_blank", "noopener") : (location.href = url);
       });
-      el.grid.addEventListener("click", e => {
-        const btn = e.target.closest(".btn-launch");
-        if (btn && btn.getAttribute("href") === "#") { e.preventDefault(); toast("แอปนี้ยังไม่ได้ตั้งค่าลิงก์"); }
+
+      // QR Modal Events
+      el.closeQrModal.addEventListener("click", closeQrModal);
+      el.qrModal.addEventListener("click", e => { if (e.target.id === "qrModal") closeQrModal(); });
+      el.qrCopyBtn.addEventListener("click", async () => {
+        const text = el.qrUrlText.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          toast("คัดลอกลิงก์เรียบร้อยแล้ว");
+        } catch {
+          toast("คัดลอกไม่สำเร็จ");
+        }
       });
     }
 
-    /* ---------- Micro-interaction: Ripple ---------- */
+    /* ---------- Micro-interaction: Ripple Effect ---------- */
     function initRipple() {
       document.addEventListener("pointerdown", e => {
         const host = e.target.closest("[data-ripple]");
         if (!host) return;
-        // ไม่ซ้อน ripple การ์ด ถ้ากดที่ปุ่มในการ์ด
-        const inner = e.target.closest(".btn-launch");
-        const target = inner && host.classList.contains("app-card") ? inner : host;
-        const rect = target.getBoundingClientRect();
+        const rect = host.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const r = document.createElement("span");
         r.className = "ripple";
         r.style.width = r.style.height = `${size}px`;
         r.style.left = `${e.clientX - rect.left - size / 2}px`;
         r.style.top = `${e.clientY - rect.top - size / 2}px`;
-        target.appendChild(r);
+        host.appendChild(r);
         r.addEventListener("animationend", () => r.remove());
       }, { passive: true });
     }
@@ -667,13 +975,11 @@
         label.textContent = online ? "ออนไลน์" : "ออฟไลน์";
       };
       window.addEventListener("online", () => { update(); toast("กลับมาออนไลน์แล้ว"); });
-      window.addEventListener("offline", () => { update(); toast("ขาดการเชื่อมต่อ – ใช้งานโหมดออฟไลน์"); });
+      window.addEventListener("offline", () => { update(); toast("ขาดการเชื่อมต่อ – กำลังทำงานโหมดออฟไลน์"); });
       update();
     }
 
-    /* =====================================================
-       PLATFORM DETECTION
-       ===================================================== */
+    /* ---------- Platform & In-App Browser ---------- */
     const ua = navigator.userAgent || "";
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/i.test(ua);
@@ -689,7 +995,6 @@
       return null;
     }
 
-    /* ---------- In-App Browser Banner ---------- */
     function initInAppBanner() {
       const app = detectInAppBrowser();
       if (!app || isStandalone) return;
@@ -698,24 +1003,21 @@
       const banner = $("#inAppBanner");
       const browser = isIOS ? "Safari" : "Chrome";
       $("#inAppMsg").innerHTML =
-        `คุณกำลังเปิดผ่าน <b>${app}</b> ซึ่งไม่รองรับ "เพิ่มลงหน้าจอโฮม" ` +
-        `กรุณาแตะ <b>⋯</b> หรือ <b>เมนู</b> แล้วเลือก <b>"เปิดใน ${browser}"</b>`;
+        `คุณกำลังเปิดผ่าน <b>${app}</b> ซึ่งไม่รองรับการ "เพิ่มลงหน้าจอโฮม" ` +
+        `กรุณาแตะ <b>⋯</b> แล้วเลือก <b>"เปิดใน ${browser}"</b>`;
       banner.classList.add("show");
       document.body.classList.add("has-inapp");
 
       $("#inAppOpenBtn").addEventListener("click", () => {
         const url = location.href;
         if (app === "LINE") {
-          // LINE รองรับพารามิเตอร์ openExternalBrowser=1
           const u = new URL(url);
           u.searchParams.set("openExternalBrowser", "1");
           location.href = u.toString();
         } else if (isAndroid) {
-          // Android: ใช้ intent:// เพื่อเปิด Chrome
           const clean = url.replace(/^https?:\/\//, "");
           location.href = `intent://${clean}#Intent;scheme=https;package=com.android.chrome;end`;
         } else {
-          // iOS (Facebook/Messenger): ไม่มีวิธีบังคับเปิด Safari ได้ ให้คัดลอกลิงก์แทน
           copyLink();
           toast(`แตะ ⋯ แล้วเลือก "เปิดใน Safari"`, 3500);
         }
@@ -742,19 +1044,17 @@
       toast("คัดลอกลิงก์แล้ว นำไปวางในเบราว์เซอร์ได้เลย");
     }
 
-    /* =====================================================
-       PWA INSTALL (Banner + Modal + beforeinstallprompt)
-       ===================================================== */
+    /* ---------- PWA Install Modal ---------- */
     let deferredPrompt = null;
 
-    function openModal(os) {
+    function openInstallModal(os) {
       const modal = $("#installModal");
       selectOsTab(os || (isAndroid ? "android" : "ios"));
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
     }
-    function closeModal() {
+    function closeInstallModal() {
       const modal = $("#installModal");
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden", "true");
@@ -773,7 +1073,7 @@
         $("#nativeInstallBtn").hidden = true;
         if (outcome === "accepted") { toast("กำลังติดตั้ง..."); $("#installBanner").classList.remove("show"); }
       } else {
-        openModal();
+        openInstallModal();
       }
     }
 
@@ -789,14 +1089,13 @@
         }
       });
 
-      // iOS ไม่มี beforeinstallprompt → แสดงแบนเนอร์เองเมื่ออยู่ใน Safari
       if (isIOS && !detectInAppBrowser() && !localStorage.getItem("install-banner-dismissed")) {
         setTimeout(() => $("#installBanner").classList.add("show"), 1200);
       }
 
       window.addEventListener("appinstalled", () => {
         $("#installBanner").classList.remove("show");
-        toast("ติดตั้งเรียบร้อย");
+        toast("ติดตั้ง Waghor Hub เรียบร้อยแล้ว");
       });
 
       $("#installBannerBtn").addEventListener("click", triggerInstall);
@@ -804,18 +1103,21 @@
         $("#installBanner").classList.remove("show");
         localStorage.setItem("install-banner-dismissed", "1");
       });
-      $("#openInstallGuide").addEventListener("click", () => openModal());
-      $("#footerInstall").addEventListener("click", () => openModal());
+      $("#openInstallGuide").addEventListener("click", () => openInstallModal());
+      $("#footerInstall").addEventListener("click", () => openInstallModal());
       $("#nativeInstallBtn").addEventListener("click", triggerInstall);
-      $("#closeModal").addEventListener("click", closeModal);
-      $("#installModal").addEventListener("click", e => { if (e.target.id === "installModal") closeModal(); });
-      document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+      $("#closeModal").addEventListener("click", closeInstallModal);
+      $("#installModal").addEventListener("click", e => { if (e.target.id === "installModal") closeInstallModal(); });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          closeInstallModal();
+          closeQrModal();
+        }
+      });
       $$(".os-tab").forEach(t => t.addEventListener("click", () => selectOsTab(t.dataset.os)));
     }
 
-    /* =====================================================
-       SERVICE WORKER REGISTRATION + UPDATE FLOW
-       ===================================================== */
+    /* ---------- Service Worker Registration ---------- */
     function initServiceWorker() {
       const checkBtn = $("#checkUpdate");
       if (!("serviceWorker" in navigator)) { checkBtn.hidden = true; return; }
@@ -837,7 +1139,7 @@
           checkBtn.addEventListener("click", async () => {
             toast("กำลังตรวจสอบอัปเดต...");
             await reg.update();
-            setTimeout(() => { if (!reg.installing && !reg.waiting) toast("คุณใช้เวอร์ชันล่าสุดแล้ว"); }, 1500);
+            setTimeout(() => { if (!reg.installing && !reg.waiting) toast("คุณกำลังใช้งานเวอร์ชันล่าสุด"); }, 1500);
           });
         } catch (err) {
           console.warn("SW registration failed:", err);
