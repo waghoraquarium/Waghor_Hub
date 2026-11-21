@@ -1,4 +1,4 @@
-const CACHE_NAME = 'waghor-hub-v8';
+const CACHE_NAME = 'waghor-hub-v9';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -8,11 +8,11 @@ const ASSETS_TO_CACHE = [
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
   './icons/favicon.png',
-  './icons/app-aqua-quest.png',
-  './icons/app-maintenance.png',
-  './icons/app-schedule.png',
-  './icons/app-best-tank.png',
-  './icons/app-saraban.png',
+  './icons/app-aqua-quest.png?v=2',
+  './icons/app-maintenance.png?v=2',
+  './icons/app-schedule.png?v=2',
+  './icons/app-best-tank.png?v=2',
+  './icons/app-saraban.png?v=2',
   'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap'
 ];
 
