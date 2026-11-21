@@ -1,11 +1,11 @@
 {
-  "name": "Web App Hub",
-  "short_name": "App Hub",
-  "description": "Dashboard Portal รวมแอปพลิเคชัน",
+  "name": "Waghor Hub - ศูนย์รวมเว็บแอปพลิเคชัน",
+  "short_name": "Waghor Hub",
+  "description": "ศูนย์รวมเว็บแอปพลิเคชันและสื่อนวัตกรรม อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F6F8FB",
-  "theme_color": "#F6F8FB",
+  "background_color": "#0B1F3A",
+  "theme_color": "#0B1F3A",
   "orientation": "portrait-primary",
   "icons": [
     {
