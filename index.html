@@ -181,10 +181,13 @@
     .app-card:active { transform: scale(.99); }
     .app-card-main { display: grid; grid-template-columns: auto 1fr; gap: 14px; flex: 1; }
     .app-icon {
-      width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center;
-      background: var(--icon-bg, var(--blue-700)); flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      width: 52px; height: 52px; border-radius: var(--r-md); display: grid; place-items: center;
+      background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,.04);
+      transition: transform var(--dur);
     }
-    .app-icon svg { width: 26px; height: 26px; color: #fff; }
+    .app-card:hover .app-icon { transform: scale(1.06); }
+    .app-icon img { width: 44px; height: 44px; object-fit: contain; }
+    .app-icon svg { width: 26px; height: 26px; color: var(--navy-700); }
     .app-body { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
     .app-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
     .app-title { font-size: 1rem; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -599,7 +602,7 @@
       id: "aqua-quest-admin",
       title: "Waghor Aqua Quest Admin Edition",
       desc: "ระบบจัดการและควบคุมภารกิจ WAGHOR AQUA QUEST สำหรับผู้ดูแลและเจ้าหน้าที่",
-      icon: "icon-shield",
+      icon: "icons/app-aqua-quest.png",
       category: "exhibit",
       url: "https://waghoraquarium.github.io/waghoraquarium_For_Admin/",
       badge: "Staff Only",
@@ -610,7 +613,7 @@
       id: "maintenance-request",
       title: "แจ้งซ่อม/แจ้งติดตั้ง",
       desc: "ระบบแจ้งซ่อมแซมและแจ้งติดตั้งอุปกรณ์ สื่อการเรียนรู้ และสิ่งอำนวยความสะดวก อุทยานฯ หว้ากอ",
-      icon: "icon-tools",
+      icon: "icons/app-maintenance.png",
       category: "operations",
       url: "https://waghoraquarium.github.io/Waghor_Maintenance-Request/",
       badge: "Live",
@@ -621,7 +624,7 @@
       id: "tour-schedule",
       title: "ตารางนำชม",
       desc: "ตารางการนำชมนิทรรศการ ข้อมูลรอบการเข้าชม คณะนักเรียน และประชาชนทั่วไป",
-      icon: "icon-chart",
+      icon: "icons/app-schedule.png",
       category: "schedule",
       url: "https://docs.google.com/spreadsheets/d/14ADP9vp_OcTGnNszw8bNUptOQ6w1_EwaZMprUguqLYA/edit?gid=0#gid=0",
       badge: "Live",
@@ -632,7 +635,7 @@
       id: "best-tank",
       title: "ตู้ขวัญใจมหาชน",
       desc: "ระบบจัดการและมอนิเตอร์ผลการโหวตตู้จัดแสดงปลาและสัตว์ทะเล (กำลังพัฒนา)",
-      icon: "icon-vote",
+      icon: "icons/app-best-tank.png",
       category: "exhibit",
       url: "#",
       badge: "เร็วๆ นี้",
@@ -643,7 +646,7 @@
       id: "wg-smart-saraban",
       title: "ระบบสารบรรณ Intranet (เปิดเฉพาะวันเวลาราชการ)",
       desc: "ระบบงานสารบรรณ e-Saraban เข้าสู่ระบบตรวจสอบหนังสือราชการ (เปิดใช้งานเฉพาะวัน-เวลาราชการ)",
-      icon: "icon-doc",
+      icon: "icons/app-saraban.png",
       category: "saraban",
       url: "http://118.172.207.96:93/intranet/login.php",
       badge: "Staff Only",
@@ -740,7 +743,7 @@
       if (!icon) icon = "icon-fish";
       const isImg = /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(icon) || icon.startsWith("http") || icon.startsWith("data:");
       return isImg
-        ? `<img src="${escapeHTML(icon)}" alt="" width="32" height="32" loading="lazy" style="border-radius:8px">`
+        ? `<img src="${escapeHTML(icon)}" alt="" width="44" height="44" loading="lazy" style="object-fit:contain">`
         : `<svg aria-hidden="true"><use href="#${escapeHTML(icon)}"/></svg>`;
     }
 
