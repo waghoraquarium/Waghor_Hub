@@ -24,6 +24,8 @@
 
   <!-- ===== Favicon ===== -->
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon.png" />
+  <link rel="shortcut icon" href="icons/favicon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -76,11 +78,11 @@
     .header-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
     .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .brand-logo {
-      flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
-      background: linear-gradient(135deg, var(--navy-900), var(--blue-700)); color: #fff;
-      box-shadow: 0 2px 8px rgba(11,31,58,0.15);
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+      background: #FFFFFF; border: 1px solid var(--border); padding: 4px;
+      box-shadow: 0 2px 8px rgba(11,31,58,0.08);
     }
-    .brand-logo img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+    .brand-logo img { width: 100%; height: 100%; border-radius: 8px; object-fit: contain; }
     .brand-logo svg { width: 22px; height: 22px; }
     .brand-text { min-width: 0; }
     .brand-title { font-size: 1.05rem; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -336,6 +338,7 @@
       <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
       <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
       <symbol id="icon-telescope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 10 3 3"/><path d="m13 14 8-8"/><path d="m6 14 3 3"/><path d="M2 18l3 3"/><path d="M14 3l7 7-4 4-7-7z"/><path d="M10 10l-4 4-3-3 4-4z"/><circle cx="12" cy="18" r="1"/><path d="M12 19v3"/><path d="M9 22h6"/></symbol>
+      <symbol id="icon-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
     </defs>
   </svg>
 
@@ -345,8 +348,7 @@
       <div class="header-top">
         <div class="brand">
           <div class="brand-logo" aria-hidden="true">
-            <img src="icons/icon-192.png" alt="Waghor Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-            <svg style="display:none"><use href="#icon-fish"/></svg>
+            <img src="icons/Logo.png" alt="Waghor Logo" onerror="this.src='icons/icon-192.png'">
           </div>
           <div class="brand-text">
             <h1 class="brand-title" id="hubTitle">Waghor Hub</h1>
@@ -372,10 +374,10 @@
       <div class="hero-copy">
         <div class="hero-tag">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          ศูนย์นวัตกรรมดิจิทัลหว้ากอ
+          ระบบพอร์ทัลเจ้าหน้าที่หว้ากอ
         </div>
-        <h2 class="hero-title" id="heroTitle">เชื่อมโยงทุกนวัตกรรม<br />และสื่อการเรียนรู้สู่ทุกคน</h2>
-        <p class="hero-lead">ศูนย์รวมเว็บแอปพลิเคชัน สื่อการเรียนรู้โลกใต้ทะเล ดาราศาสตร์ และระบบบริหารจัดการ อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์</p>
+        <h2 class="hero-title" id="heroTitle">ศูนย์รวมระบบงาน<br />และบริการสำหรับเจ้าหน้าที่</h2>
+        <p class="hero-lead">พอร์ทัลรวมเว็บแอปพลิเคชัน ระบบบริหารจัดการ และเครื่องมือปฏิบัติงาน อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์</p>
         <dl class="stats">
           <div class="stat"><dt>แอปพลิเคชัน</dt><dd id="statApps">0</dd></div>
           <div class="stat"><dt>หมวดหมู่</dt><dd id="statCats">0</dd></div>
@@ -400,9 +402,9 @@
         <circle class="pulse" r="4" fill="#7DD3FC" style="offset-path:path('M180 140L235 62');animation-delay:2250ms"/>
 
         <!-- Center Waghor Node -->
-        <circle cx="180" cy="140" r="38" fill="#1D4ED8"/>
+        <circle cx="180" cy="140" r="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
         <circle cx="180" cy="140" r="46" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <use href="#icon-fish" x="164" y="124" width="32" height="32" style="color:#fff"/>
+        <image href="icons/Logo.png" x="150" y="110" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
 
         <!-- Satellite Nodes -->
         <g><circle cx="290" cy="140" r="22" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><use href="#icon-game" x="279" y="129" width="22" height="22" style="color:#1D4ED8"/></g>
@@ -570,14 +572,14 @@
     openLinksInNewTab: true  // true = เปิดแอปในแท็บใหม่เพื่อให้หน้า Hub คงอยู่ตลอดเวลา
   };
 
-  /** หมวดหมู่แอปพลิเคชัน */
+  /** หมวดหมู่แอปพลิเคชัน (สำหรับเจ้าหน้าที่) */
   const CATEGORIES = [
     { id: "all",        label: "ทั้งหมด" },
     { id: "favorite",   label: "⭐ ที่ใช้บ่อย" },
-    { id: "learn_game", label: "🎮 กิจกรรม & เกม" },
-    { id: "exhibition", label: "🐟 นิทรรศการ & สัตว์น้ำ" },
-    { id: "staff",      label: "💼 สำหรับเจ้าหน้าที่" },
-    { id: "survey",     label: "📊 แบบประเมิน & รายงาน" }
+    { id: "operations", label: "🛠️ บริการ & แจ้งซ่อม" },
+    { id: "exhibit",    label: "🐟 จัดการนิทรรศการ & สัตว์น้ำ" },
+    { id: "schedule",   label: "📊 ตารางนำชม & สถิติ" },
+    { id: "saraban",    label: "📄 งานสารบรรณ" }
   ];
 
   /** รูปแบบ Badge */
@@ -585,101 +587,68 @@
     "Live": "badge--live",
     "New": "badge--new",
     "Staff Only": "badge--staff",
-    "Beta": "badge--beta"
+    "Beta": "badge--beta",
+    "เร็วๆ นี้": "badge--beta"
   };
 
   /**
-   * รายการแอปพลิเคชันทั้งหมดของหว้ากอ
-   * สามารถแก้ไข URL หรือเพิ่มแอปใหม่ได้ที่รายการนี้
+   * รายการแอปพลิเคชันสำหรับเจ้าหน้าที่อุทยานฯ หว้ากอ
    */
   const APPS_DATA = [
     {
-      id: "aqua-quest",
-      title: "WAGHOR AQUA QUEST",
-      desc: "ภารกิจพิชิตโลกใต้น้ำ เดินสำรวจและสะสมตราประทับดิจิทัลในพิพิธภัณฑ์สัตว์น้ำหว้ากอ",
-      icon: "icon-fish",
-      category: "learn_game",
-      url: "https://waghoraquarium.github.io/waghoraquarium/",
+      id: "aqua-quest-admin",
+      title: "Waghor Aqua Quest Admin Edition",
+      desc: "ระบบจัดการและควบคุมภารกิจ WAGHOR AQUA QUEST สำหรับผู้ดูแลและเจ้าหน้าที่",
+      icon: "icon-shield",
+      category: "exhibit",
+      url: "https://waghoraquarium.github.io/waghoraquarium_For_Admin/",
+      badge: "Staff Only",
+      color: "#EA580C",
+      keywords: ["admin", "aqua", "quest", "จัดการ", "เจ้าหน้าที่", "ผู้ดูแล", "พาสปอร์ต"]
+    },
+    {
+      id: "maintenance-request",
+      title: "แจ้งซ่อม/แจ้งติดตั้ง",
+      desc: "ระบบแจ้งซ่อมแซมและแจ้งติดตั้งอุปกรณ์ สื่อการเรียนรู้ และสิ่งอำนวยความสะดวก อุทยานฯ หว้ากอ",
+      icon: "icon-tools",
+      category: "operations",
+      url: "https://waghoraquarium.github.io/Waghor_Maintenance-Request/",
       badge: "Live",
-      color: "#0284C7",
-      keywords: ["aqua", "quest", "เกม", "พาสปอร์ต", "passport", "หว้ากอ", "สัตว์น้ำ", "ภารกิจ", "โลกใต้น้ำ"]
+      color: "#D97706",
+      keywords: ["แจ้งซ่อม", "แจ้งติดตั้ง", "ซ่อมบำรุง", "maintenance", "request", "อุปกรณ์", "ช่าง"]
+    },
+    {
+      id: "tour-schedule",
+      title: "ตารางนำชม",
+      desc: "ตารางการนำชมนิทรรศการ ข้อมูลรอบการเข้าชม คณะนักเรียน และประชาชนทั่วไป",
+      icon: "icon-chart",
+      category: "schedule",
+      url: "https://docs.google.com/spreadsheets/d/14ADP9vp_OcTGnNszw8bNUptOQ6w1_EwaZMprUguqLYA/edit?gid=0#gid=0",
+      badge: "Live",
+      color: "#059669",
+      keywords: ["ตารางนำชม", "นำชม", "คณะเข้าชม", "สถิติ", "ตาราง", "google sheet", "รอบเข้าชม"]
     },
     {
       id: "best-tank",
-      title: "โหวตตู้ปลาในดวงใจ (Best Tank)",
-      desc: "ร่วมโหวตตู้จัดแสดงปลาและสัตว์ทะเลที่คุณชื่นชอบมากที่สุด พร้อมดูผลคะแนนแบบเรียลไทม์",
+      title: "ตู้ขวัญใจมหาชน",
+      desc: "ระบบจัดการและมอนิเตอร์ผลการโหวตตู้จัดแสดงปลาและสัตว์ทะเล (กำลังพัฒนา)",
       icon: "icon-vote",
-      category: "exhibition",
+      category: "exhibit",
       url: "#",
-      badge: "New",
+      badge: "เร็วๆ นี้",
       color: "#0EA5E9",
-      keywords: ["vote", "โหวต", "ตู้ปลา", "best tank", "แทงค์", "ปลาที่ชอบ"]
-    },
-    {
-      id: "quiz-challenge",
-      title: "Waghor Quiz Challenge",
-      desc: "เกมตอบคำถามประลองความรู้ดาราศาสตร์ วิทยาศาสตร์ และความหลากหลายทางชีวภาพ",
-      icon: "icon-quiz",
-      category: "learn_game",
-      url: "#",
-      badge: "Live",
-      color: "#1D4ED8",
-      keywords: ["quiz", "ตอบคำถาม", "เกม", "ความรู้", "วิทยาศาสตร์", "ดาราศาสตร์", "kiosk"]
-    },
-    {
-      id: "marine-match",
-      title: "เกมจับคู่สัตว์น้ำหว้ากอ",
-      desc: "เกมฝึกความจำและรู้จักสัตว์น้ำหายากในอ่าวไทย สำหรับเด็ก เยาวชน และครอบครัว",
-      icon: "icon-game",
-      category: "learn_game",
-      url: "#",
-      badge: "Beta",
-      color: "#F97316",
-      keywords: ["จับคู่", "เกม", "match", "เด็ก", "สัตว์น้ำ", "เกมจับคู่"]
+      keywords: ["vote", "โหวต", "ตู้ปลา", "ตู้ขวัญใจมหาชน", "ขวัญใจมหาชน", "แทงค์", "ปลาที่ชอบ", "best tank"]
     },
     {
       id: "wg-smart-saraban",
-      title: "WG Smart & e-Saraban Cloud",
-      desc: "ระบบติดตามหนังสือราชการ e-Saraban อัตโนมัติ แจ้งเตือนผ่าน LINE และสั่งพิมพ์เอกสารอัตโนมัติ",
-      icon: "icon-shield",
-      category: "staff",
-      url: "#",
+      title: "ระบบสารบรรณ Intranet (เปิดเฉพาะวันเวลาราชการ)",
+      desc: "ระบบงานสารบรรณ e-Saraban เข้าสู่ระบบตรวจสอบหนังสือราชการ (เปิดใช้งานเฉพาะวัน-เวลาราชการ)",
+      icon: "icon-doc",
+      category: "saraban",
+      url: "http://118.172.207.96:93/intranet/login.php",
       badge: "Staff Only",
       color: "#0B1F3A",
-      keywords: ["saraban", "สารบรรณ", "หนังสือราชการ", "line", "smart", "เจ้าหน้าที่", "ออโต้ปริ้นท์"]
-    },
-    {
-      id: "visit-stats",
-      title: "ระบบสถิตินำชม & บันทึกข้อมูล",
-      desc: "บันทึกและตรวจสอบสถิติการเข้าชมนิทรรศการ คณะนักเรียน และประชาชนทั่วไป",
-      icon: "icon-chart",
-      category: "staff",
-      url: "#",
-      badge: "Staff Only",
-      color: "#1E3557",
-      keywords: ["สถิติ", "นำชม", "คณะเข้าชม", "บันทึก", "รายงาน"]
-    },
-    {
-      id: "satisfaction-survey",
-      title: "แบบประเมินความพึงพอใจการเข้าชม",
-      desc: "แบบสำรวจความคิดเห็นและความพึงพอใจของผู้รับบริการ เพื่อนำไปพัฒนาการให้บริการของอุทยานฯ",
-      icon: "icon-doc",
-      category: "survey",
-      url: "#",
-      badge: "Live",
-      color: "#059669",
-      keywords: ["ประเมิน", "ความพึงพอใจ", "survey", "แบบสอบถาม", "ความเห็น"]
-    },
-    {
-      id: "media-catalog",
-      title: "ทำเนียบสื่อและนิทรรศการ",
-      desc: "คลังข้อมูลสื่อวิชาการ เอกสารเผยแพร่ และรายละเอียดนิทรรศการพิพิธภัณฑ์สัตว์น้ำหว้ากอ",
-      icon: "icon-telescope",
-      category: "exhibition",
-      url: "#",
-      badge: "Live",
-      color: "#4338CA",
-      keywords: ["สื่อ", "นิทรรศการ", "พิพิธภัณฑ์", "วิชาการ", "เอกสาร"]
+      keywords: ["saraban", "สารบรรณ", "หนังสือราชการ", "intranet", "เวลาราชการ", "เจ้าหน้าที่", "login"]
     }
   ];
 
@@ -1119,6 +1088,17 @@
 
     /* ---------- Service Worker Registration ---------- */
     function initServiceWorker() {
+      // ล้างแคชเวอร์ชันเก่าที่อาจตกค้าง
+      if ('caches' in window) {
+        caches.keys().then(keys => {
+          keys.forEach(k => {
+            if (k === 'hub-cache-v1') {
+              caches.delete(k);
+            }
+          });
+        });
+      }
+
       const checkBtn = $("#checkUpdate");
       if (!("serviceWorker" in navigator)) { checkBtn.hidden = true; return; }
 
