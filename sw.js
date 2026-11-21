@@ -1,4 +1,4 @@
-const CACHE_NAME = 'waghor-hub-v9';
+const CACHE_NAME = 'waghor-hub-v10';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
