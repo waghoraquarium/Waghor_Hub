@@ -977,26 +977,44 @@
 
       const banner = $("#inAppBanner");
       const browser = isIOS ? "Safari" : "Chrome";
-      $("#inAppMsg").innerHTML =
-        `คุณกำลังเปิดผ่าน <b>${app}</b> ซึ่งไม่รองรับการ "เพิ่มลงหน้าจอโฮม" ` +
-        `กรุณาแตะ <b>⋯</b> แล้วเลือก <b>"เปิดใน ${browser}"</b>`;
+      const isIosManual = isIOS && app !== "LINE";
+
+      if (isIosManual) {
+        $("#inAppMsg").innerHTML =
+          `คุณกำลังเปิดผ่าน <b>${app}</b> บน iPhone/iPad ซึ่งระบบความปลอดภัยของ Apple ไม่อนุญาตให้เปิด Safari อัตโนมัติ ` +
+          `<br>👉 <b>วิธีเปิด:</b> แตะปุ่ม <b>⋯</b> (มุมขวาบนหรือล่าง) แล้วเลือก <b>"เปิดใน Safari"</b>`;
+        $("#inAppOpenBtn").textContent = "แนะนำวิธีเปิด";
+      } else {
+        $("#inAppMsg").innerHTML =
+          `คุณกำลังเปิดผ่าน <b>${app}</b> กรุณาเปิดด้วย <b>${browser}</b> เพื่อการแสดงผลที่สมบูรณ์และเพิ่มลงหน้าจอโฮมได้`;
+        $("#inAppOpenBtn").textContent = `เปิดใน ${browser}`;
+      }
+
       banner.classList.add("show");
       document.body.classList.add("has-inapp");
 
       $("#inAppOpenBtn").addEventListener("click", () => {
         const url = location.href;
-        if (app === "LINE") {
+        
+        // 1. ถ้าเป็น LINE (รองรับทั้ง iOS และ Android)
+        if (app === "LINE" || /line/i.test(navigator.userAgent)) {
           const u = new URL(url);
           u.searchParams.set("openExternalBrowser", "1");
           location.href = u.toString();
-        } else if (isAndroid) {
-          const clean = url.replace(/^https?:\/\//, "");
-          location.href = `intent://${clean}#Intent;scheme=https;package=com.android.chrome;end`;
-        } else {
-          copyLink();
-          toast(`แตะ ⋯ แล้วเลือก "เปิดใน Safari"`, 3500);
+          return;
         }
+
+        // 2. ถ้าเป็น Android (เปิดผ่าน Intent ไปยังเบราว์เซอร์หลักของเครื่อง)
+        if (isAndroid) {
+          const clean = url.replace(/^https?:\/\//, "");
+          location.href = `intent://${clean}#Intent;scheme=https;action=android.intent.action.VIEW;end`;
+          return;
+        }
+
+        // 3. ถ้าเป็น iOS บนแอปอื่น (Facebook / Messenger ฯลฯ)
+        toast(`แตะที่ปุ่ม ⋯ (มุมขวาบนหรือล่าง) แล้วเลือก "เปิดใน Safari"`, 4500);
       });
+
       $("#inAppCopyBtn").addEventListener("click", copyLink);
       $("#inAppClose").addEventListener("click", () => {
         banner.classList.remove("show");
