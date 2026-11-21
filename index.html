@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ===== Mobile Viewport (viewport-fit=cover สำหรับ Notch / Dynamic Island) ===== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Web App Hub</title>
+  <meta name="description" content="Web App Hub – Dashboard Portal รวมแอปไว้ในที่เดียว" />
+
+  <!-- ===== Theme Color ===== -->
+  <meta name="theme-color" content="#F6F8FB" />
+  <meta name="color-scheme" content="light" />
+
+  <!-- ===== PWA Manifest ===== -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- ===== iOS Safari ===== -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="App Hub" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- ===== Favicon ===== -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* 1) TOKENS — 60% canvas / 30% surface / 10% accent */
+    :root {
+      --canvas: #F6F8FB; --surface: #FFFFFF; --surface-2: #EEF2F7;
+      --border: #E2E8F0; --border-strong: #CBD5E1;
+      --navy-900: #0B1F3A; --navy-700: #1E3557;
+      --blue-600: #1D4ED8; --blue-700: #1E40AF;
+      --sky-500: #0EA5E9; --sky-100: #E6F3FD; --sky-300: #7DD3FC;
+      --orange-500: #F97316; --orange-700: #C2410C; --orange-50: #FFF4EC;
+      --text: #0B1F3A; --text-2: #475569; --muted: #5B6B80;
+      --badge-live: var(--blue-600); --badge-new: #0369A1;
+      --badge-staff: var(--orange-700); --badge-beta: #475569;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+      --shadow: 0 1px 2px rgba(11,31,58,.04), 0 4px 16px rgba(11,31,58,.05);
+      --shadow-hover: 0 2px 4px rgba(11,31,58,.04), 0 12px 32px rgba(11,31,58,.07);
+      --ease: cubic-bezier(.22,1,.36,1); --dur: 200ms;
+      --sat: env(safe-area-inset-top,0px); --sab: env(safe-area-inset-bottom,0px);
+      --sal: env(safe-area-inset-left,0px); --sar: env(safe-area-inset-right,0px);
+      --font: "IBM Plex Sans Thai","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    }
+    /* 2) BASE (weights 400/500/600 only; sizes 12/14/16+) */
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font); font-size: 1rem; font-weight: 400; line-height: 1.55;
+      background: var(--canvas); color: var(--text); min-height: 100dvh;
+      -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: none; padding-left: var(--sal); padding-right: var(--sar);
+    }
+    button,input { font: inherit; color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+    a { color: inherit; text-decoration: none; }
+    svg { display: block; }
+    b,strong { font-weight: 600; }
+    .sr-only { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+    :focus-visible { outline: 2px solid var(--blue-600); outline-offset: 2px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 768px) { .container { padding: 0 32px; } }
+
+    /* 3) HEADER — solid, no blur */
+    .app-header {
+      position: sticky; top: 0; z-index: 50; padding-top: var(--sat);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+    }
+    .header-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-logo { flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--navy-900); color: var(--sky-300); }
+    .brand-logo svg { width: 22px; height: 22px; }
+    .brand-text { min-width: 0; }
+    .brand-title { font-size: 1rem; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-sub { font-size: .75rem; line-height: 1.4; color: var(--muted); }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .status-chip { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 500; color: var(--text-2); white-space: nowrap; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky-500); }
+    .status-chip.offline .status-dot { background: var(--orange-500); }
+    .icon-btn {
+      position: relative; width: 44px; height: 44px; border-radius: var(--r-md); display: grid; place-items: center;
+      background: var(--surface); border: 1px solid var(--border); color: var(--navy-700);
+      transition: background var(--dur), border-color var(--dur);
+    }
+    .icon-btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .icon-btn[data-tip]::after {
+      content: attr(data-tip); position: absolute; top: calc(100% + 8px); right: 0; z-index: 5;
+      padding: 6px 10px; border-radius: var(--r-sm); background: var(--navy-900); color: #fff;
+      font-size: .75rem; font-weight: 500; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--dur);
+    }
+    .icon-btn[data-tip]:focus-visible::after { opacity: 1; }
+    @media (hover: hover) { .icon-btn[data-tip]:hover::after { opacity: 1; } }
+
+    /* 4) HERO */
+    .hero { display: grid; gap: 24px; align-items: center; margin: 24px 0 32px; padding: 32px 24px; border-radius: 24px; background: var(--navy-900); color: #fff; }
+    .hero-viz { display: block; width: 100%; max-width: 240px; justify-self: center; overflow: visible; }
+    @media (min-width: 640px) { .hero { padding: 40px 32px; } .hero-viz { max-width: 300px; } }
+    @media (min-width: 900px) { .hero { grid-template-columns: 1.15fr .85fr; padding: 48px; } .hero-viz { max-width: 380px; } }
+    .pulse { offset-distance: 0%; animation: travel 2.8s var(--ease) infinite; }
+    @keyframes travel { 0% { offset-distance: 0%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+    .hero-copy > * { animation: rise 640ms var(--ease) both; }
+    .hero-copy > :nth-child(2) { animation-delay: 80ms; } .hero-copy > :nth-child(3) { animation-delay: 160ms; }
+    .hero-viz { animation: fadeIn 900ms var(--ease) 200ms both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .hero-title { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; color: #fff; }
+    .hero-lead { margin-top: 16px; color: #CBD5E1; line-height: 1.6; max-width: 60ch; font-size: 1rem; color: var(--text-2); }
+    .stats { display: flex; gap: 32px; margin-top: 24px; }
+    .stat dt { font-size: .75rem; color: #A9B8CC; }
+    .stat dd { font-variant-numeric: tabular-nums; font-size: 1.5rem; font-weight: 600; line-height: 1.25; color: #fff; }
+
+    /* 5) SEARCH + FILTERS */
+    .search-wrap { position: relative; margin: 0 0 16px; max-width: 640px; }
+    .search-wrap svg.search-ic { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+    .search-input {
+      width: 100%; height: 52px; padding: 0 48px; border-radius: var(--r-md);
+      background: var(--surface); border: 1px solid var(--border-strong); font-size: 1rem;
+      transition: border-color var(--dur), box-shadow var(--dur); -webkit-appearance: none; appearance: none;
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus { outline: none; border-color: var(--blue-600); box-shadow: 0 0 0 4px rgba(29,78,216,.12); }
+    .search-input::-webkit-search-cancel-button { display: none; }
+    .search-clear { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: none; place-items: center; color: var(--muted); }
+    .search-clear.show { display: grid; }
+    .search-clear svg { width: 16px; height: 16px; }
+
+    .filter-bar {
+      display: flex; gap: 8px; overflow-x: auto; padding: 4px 16px 16px; margin: 0 -16px;
+      scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    @media (min-width: 768px) { .filter-bar { margin: 0 -32px; padding: 4px 32px 16px; } }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .chip {
+      position: relative; overflow: hidden; flex-shrink: 0; scroll-snap-align: start;
+      height: 44px; padding: 0 16px; border-radius: var(--r-md);
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-2);
+      font-size: .875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
+      transition: background var(--dur), border-color var(--dur), color var(--dur);
+    }
+    .chip:hover { border-color: var(--border-strong); }
+    .chip .count { font-variant-numeric: tabular-nums; font-size: .75rem; font-weight: 500; opacity: .7; }
+    .chip[aria-selected="true"] { background: var(--navy-900); border-color: var(--navy-900); color: #fff; }
+
+    /* 6) SECTION + GRID */
+    main { padding-bottom: 24px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 16px; }
+    .section-title { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
+    .result-count { font-size: .875rem; color: var(--muted); }
+    .app-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 640px) { .app-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .app-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+    .app-card {
+      position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 16px;
+      padding: 20px; border-radius: var(--r-lg); background: var(--surface);
+      border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer;
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur);
+    }
+    @media (hover: hover) { .app-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); } }
+    .app-card:active { transform: scale(.99); }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .app-icon { width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center; background: var(--icon-bg, var(--blue-700)); }
+    .app-icon svg { width: 24px; height: 24px; color: #fff; }
+    .app-body { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+    .app-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .app-title { font-size: 1rem; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .app-desc { font-size: .875rem; color: var(--text-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .app-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
+    .tags { display: flex; gap: 8px; }
+    .tag-cat { font-size: .75rem; color: var(--muted); }
+    .badge {
+      flex-shrink: 0; font-size: .75rem; font-weight: 500; line-height: 1.4; padding: 2px 8px; border-radius: 6px;
+      color: var(--badge-color, var(--muted)); background: color-mix(in srgb, var(--badge-color, #64748B) 10%, transparent);
+    }
+    .badge--live { --badge-color: var(--badge-live); } .badge--new { --badge-color: var(--badge-new); }
+    .badge--staff { --badge-color: var(--badge-staff); } .badge--beta { --badge-color: var(--badge-beta); }
+    .btn-launch {
+      position: relative; overflow: hidden; flex-shrink: 0; min-height: 44px; padding: 0 16px; border-radius: var(--r-md);
+      border: 1px solid var(--blue-600); background: var(--surface); color: var(--blue-600);
+      font-size: .875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
+      transition: background var(--dur), color var(--dur);
+    }
+    .btn-launch svg { width: 14px; height: 14px; }
+    .btn-launch:hover, .app-card:hover .btn-launch { background: var(--blue-600); color: #fff; }
+    .ripple { position: absolute; border-radius: 50%; pointer-events: none; background: rgba(29,78,216,.14); transform: scale(0); animation: ripple 600ms var(--ease) forwards; }
+    @keyframes ripple { to { transform: scale(2.6); opacity: 0; } }
+
+    .empty-state { display: none; text-align: center; padding: 48px 16px; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
+    .empty-state.show { display: block; }
+    .empty-state svg { width: 32px; height: 32px; margin: 0 auto 12px; color: var(--muted); }
+    .empty-state strong { display: block; color: var(--text); margin-bottom: 4px; }
+
+    /* 7) BANNERS */
+    .install-banner { display: none; align-items: center; gap: 12px; margin-top: 24px; padding: 16px; border-radius: var(--r-lg); background: var(--sky-100); border: 1px solid #BFDBFE; }
+    .install-banner.show { display: flex; animation: cardIn 360ms var(--ease); }
+    .install-banner .ib-icon { width: 40px; height: 40px; border-radius: var(--r-md); flex-shrink: 0; display: grid; place-items: center; background: var(--blue-600); color: #fff; }
+    .install-banner .ib-icon svg { width: 20px; height: 20px; }
+    .install-banner .ib-text { flex: 1; min-width: 0; font-size: .875rem; }
+    .install-banner .ib-text strong { display: block; }
+    .install-banner .ib-text span { color: var(--text-2); }
+    .btn-small { position: relative; overflow: hidden; min-height: 44px; padding: 0 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 500; font-size: .875rem; }
+    .btn-small:hover { background: var(--blue-700); }
+    .btn-ghost-x { width: 44px; height: 44px; display: grid; place-items: center; color: var(--muted); flex-shrink: 0; }
+    .btn-ghost-x svg { width: 16px; height: 16px; }
+
+    .inapp-banner {
+      position: fixed; z-index: 90; left: calc(12px + var(--sal)); right: calc(12px + var(--sar)); bottom: calc(12px + var(--sab));
+      display: none; gap: 12px; align-items: flex-start; padding: 16px; max-width: 560px; margin: 0 auto;
+      border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border-strong); border-left: 4px solid var(--orange-500);
+      box-shadow: 0 8px 40px rgba(11,31,58,.08);
+    }
+    .inapp-banner.show { display: flex; animation: slideUp 360ms var(--ease); }
+    @keyframes slideUp { from { transform: translateY(120%); } to { transform: none; } }
+    .inapp-banner .ia-icon { color: var(--orange-700); flex-shrink: 0; }
+    .inapp-banner .ia-icon svg { width: 24px; height: 24px; }
+    .inapp-banner .ia-body { flex: 1; font-size: .875rem; }
+    .inapp-banner .ia-body strong { display: block; margin-bottom: 4px; }
+    .inapp-banner .ia-body p { color: var(--text-2); }
+    .inapp-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .btn-warn { position: relative; overflow: hidden; min-height: 44px; padding: 0 16px; border-radius: var(--r-md); background: var(--orange-500); color: var(--navy-900); font-weight: 600; font-size: .875rem; }
+    .btn-outline { min-height: 44px; padding: 0 16px; border-radius: var(--r-md); border: 1px solid var(--border-strong); font-size: .875rem; font-weight: 500; }
+
+    /* 8) MODAL (opaque scrim, no blur) */
+    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(11,31,58,.45); opacity: 0; pointer-events: none; transition: opacity var(--dur); display: flex; align-items: flex-end; justify-content: center; }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .sheet { width: 100%; max-width: 560px; max-height: 88dvh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-bottom: none; border-radius: 24px 24px 0 0; padding: 8px 24px calc(24px + var(--sab)); transform: translateY(100%); transition: transform 320ms var(--ease); overscroll-behavior: contain; }
+    .modal-backdrop.open .sheet { transform: none; }
+    @media (min-width: 640px) { .modal-backdrop { align-items: center; } .sheet { border-radius: 24px; border-bottom: 1px solid var(--border); padding-bottom: 24px; } }
+    .sheet-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border-strong); margin: 8px auto 16px; }
+    .sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .sheet-head h2 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
+    .os-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--surface-2); border-radius: var(--r-md); margin-bottom: 16px; }
+    .os-tab { min-height: 44px; border-radius: var(--r-sm); font-weight: 500; font-size: .875rem; color: var(--text-2); transition: background var(--dur), color var(--dur); }
+    .os-tab[aria-selected="true"] { background: var(--surface); color: var(--navy-900); box-shadow: var(--shadow); }
+    .os-panel { display: none; } .os-panel.active { display: block; animation: cardIn 260ms var(--ease); }
+    .steps { list-style: none; display: grid; gap: 8px; counter-reset: step; }
+    .steps li { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-radius: var(--r-md); background: var(--canvas); border: 1px solid var(--border); font-size: .875rem; }
+    .steps li::before { content: counter(step); flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-900); color: #fff; font-weight: 600; font-size: .75rem; }
+    .steps .kbd { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; padding: 2px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border-strong); font-weight: 500; font-size: .75rem; }
+    .steps .kbd svg { width: 14px; height: 14px; }
+    .sheet-note { margin-top: 16px; font-size: .75rem; color: var(--muted); }
+    .btn-block { position: relative; overflow: hidden; width: 100%; height: 48px; margin-top: 16px; border-radius: var(--r-md); background: var(--blue-600); color: #fff; font-weight: 600; }
+    .btn-block:hover { background: var(--blue-700); }
+    .btn-block[hidden] { display: none; }
+
+    /* 9) TOAST / FOOTER */
+    .toast { position: fixed; z-index: 120; left: 50%; top: calc(var(--sat) + 16px); transform: translate(-50%,-200%); padding: 12px 16px; border-radius: var(--r-md); background: var(--navy-900); color: #fff; font-size: .875rem; font-weight: 500; box-shadow: 0 8px 32px rgba(11,31,58,.08); transition: transform 300ms var(--ease); max-width: calc(100vw - 32px); }
+    .toast.show { transform: translate(-50%,0); }
+    .app-footer-main { margin-top: 48px; padding: 24px 0 calc(24px + var(--sab)); border-top: 1px solid var(--border); text-align: center; font-size: .75rem; color: var(--muted); }
+    .footer-links { display: flex; justify-content: center; gap: 8px 24px; margin-bottom: 8px; flex-wrap: wrap; }
+    .footer-links a, .footer-links button { color: var(--blue-600); font-weight: 500; font-size: .875rem; min-height: 44px; display: inline-flex; align-items: center; }
+    .version-tag { display: inline-block; margin-top: 4px; font-family: ui-monospace, monospace; }
+    body.has-inapp .app-footer-main { padding-bottom: calc(184px + var(--sab)); }
+
+    @media (display-mode: standalone) {
+      .hide-in-standalone { display: none !important; }
+      body { user-select: none; -webkit-user-select: none; }
+      .search-input { user-select: text; -webkit-user-select: text; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pulse { display: none; }
+      *,*::before,*::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =====================================================
+       SVG ICON SPRITE (เพิ่มไอคอนใหม่ได้โดยเพิ่ม <symbol>)
+       ===================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="3.5"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></symbol>
+      <symbol id="i-plus-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></symbol>
+      <symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+      <symbol id="i-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+      <!-- App icon placeholders -->
+      <symbol id="icon-placeholder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 12h6M12 9v6"/></symbol>
+      <symbol id="icon-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="app-header">
+    <div class="container">
+      <div class="header-top">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true"><svg><use href="#i-logo"/></svg></div>
+          <div class="brand-text">
+            <h1 class="brand-title" id="hubTitle">Hub Name Placeholder</h1>
+            <p class="brand-sub" id="lastUpdated">อัปเดตล่าสุด: —</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="status-chip" id="netStatus" role="status" aria-live="polite">
+            <span class="status-dot"></span><span class="status-label">ออนไลน์</span>
+          </span>
+          <button class="icon-btn hide-in-standalone" id="openInstallGuide" aria-label="วิธีติดตั้งแอป" data-tip="วิธีติดตั้งแอป">
+            <svg><use href="#i-download"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <h2 class="hero-title" id="heroTitle">ทุกแอปที่คุณใช้งาน<br />เข้าถึงได้จากที่เดียว</h2>
+        <p class="hero-lead">ศูนย์รวมแอปพลิเคชันขององค์กร เลือกแอปที่ต้องการแล้วเปิดใช้งานได้ทันที</p>
+        <dl class="stats">
+          <div class="stat"><dt>แอปทั้งหมด</dt><dd id="statApps">0</dd></div>
+          <div class="stat"><dt>หมวดหมู่</dt><dd id="statCats">0</dd></div>
+        </dl>
+      </div>
+      <svg class="hero-viz" viewBox="0 0 360 280" aria-hidden="true" focusable="false"><line x1="180" y1="140" x2="290" y2="140" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="235" y2="218" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="125" y2="218" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="70" y2="140" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="125" y2="62" stroke="#3B5B85" stroke-width="1.5"/><line x1="180" y1="140" x2="235" y2="62" stroke="#3B5B85" stroke-width="1.5"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L290 140');animation-delay:0ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L235 218');animation-delay:450ms"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L125 218');animation-delay:900ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L70 140');animation-delay:1350ms"/><circle class="pulse" r="3.5" fill="#F97316" style="offset-path:path('M180 140L125 62');animation-delay:1800ms"/><circle class="pulse" r="3.5" fill="#7DD3FC" style="offset-path:path('M180 140L235 62');animation-delay:2250ms"/><circle cx="180" cy="140" r="38" fill="#1D4ED8"/><use href="#i-logo" x="164" y="124" width="32" height="32" style="color:#fff"/><g><circle cx="290" cy="140" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="282" y="132" width="16" height="16" rx="4" fill="#1D4ED8"/></g><g><circle cx="235" cy="218" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="227" y="210" width="16" height="16" rx="4" fill="#0EA5E9"/></g><g><circle cx="125" cy="218" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="117" y="210" width="16" height="16" rx="4" fill="#EA580C"/></g><g><circle cx="70" cy="140" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="62" y="132" width="16" height="16" rx="4" fill="#0B1F3A"/></g><g><circle cx="125" cy="62" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="117" y="54" width="16" height="16" rx="4" fill="#1E40AF"/></g><g><circle cx="235" cy="62" r="24" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/><rect x="227" y="54" width="16" height="16" rx="4" fill="#0284C7"/></g></svg>
+    </section>
+
+    <!-- Install Banner -->
+    <div class="install-banner hide-in-standalone" id="installBanner" role="region" aria-label="ติดตั้งแอป">
+      <div class="ib-icon"><svg><use href="#i-plus-square"/></svg></div>
+      <div class="ib-text">
+        <strong>เพิ่มลงหน้าจอโฮม</strong>
+        <span>เปิดใช้งานได้ทันทีเหมือนแอปจริง</span>
+      </div>
+      <button class="btn-small" id="installBannerBtn" data-ripple>ติดตั้ง</button>
+      <button class="btn-ghost-x" id="installBannerClose" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap" role="search">
+      <label for="searchInput" class="sr-only">ค้นหาแอป</label>
+      <svg class="search-ic"><use href="#i-search"/></svg>
+      <input type="search" id="searchInput" class="search-input"
+             placeholder="ค้นหาแอป..." autocomplete="off" enterkeyhint="search" />
+      <button class="search-clear" id="searchClear" aria-label="ล้างคำค้นหา"><svg><use href="#i-x"/></svg></button>
+    </div>
+
+    <!-- Category Filter -->
+    <nav class="filter-bar" id="filterBar" role="tablist" aria-label="หมวดหมู่แอป"></nav>
+
+    <!-- App Cards -->
+    <section aria-labelledby="sectionTitle">
+      <div class="section-head">
+        <h2 class="section-title" id="sectionTitle">แอปทั้งหมด</h2>
+        <span class="result-count" id="resultCount" aria-live="polite"></span>
+      </div>
+      <div class="app-grid" id="appGrid"></div>
+      <div class="empty-state" id="emptyState">
+        <svg><use href="#i-empty"/></svg>
+        <strong>ไม่พบแอปที่ค้นหา</strong>
+        ลองใช้คำค้นอื่น หรือเลือกหมวดหมู่ "ทั้งหมด"
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer-main">
+      <div class="footer-links">
+        <a href="#" id="supportLink">ติดต่อช่วยเหลือ</a>
+        <button type="button" id="footerInstall" class="hide-in-standalone">วิธีติดตั้ง</button>
+        <button type="button" id="checkUpdate">ตรวจสอบอัปเดต</button>
+      </div>
+      <p id="footerCredit">© <span id="year"></span> Organization Placeholder</p>
+      <span class="version-tag" id="versionTag">v0.0.0</span>
+    </footer>
+  </main>
+
+  <!-- ===================== IN-APP BROWSER BANNER ===================== -->
+  <div class="inapp-banner" id="inAppBanner" role="alert">
+    <div class="ia-icon"><svg><use href="#i-warn"/></svg></div>
+    <div class="ia-body">
+      <strong>กรุณาเปิดด้วยเบราว์เซอร์ภายนอก</strong>
+      <p id="inAppMsg">คุณกำลังเปิดผ่านแอปอื่น ซึ่งไม่สามารถ "เพิ่มลงหน้าจอโฮม" ได้ กรุณาเปิดด้วย Safari หรือ Chrome</p>
+      <div class="inapp-actions">
+        <button class="btn-warn" id="inAppOpenBtn" data-ripple>เปิดในเบราว์เซอร์</button>
+        <button class="btn-outline" id="inAppCopyBtn">คัดลอกลิงก์</button>
+      </div>
+    </div>
+    <button class="btn-ghost-x" id="inAppClose" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
+  </div>
+
+  <!-- ===================== INSTALL GUIDE MODAL ===================== -->
+  <div class="modal-backdrop" id="installModal" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <h2 id="modalTitle">เพิ่มลงหน้าจอโฮม</h2>
+        <button class="icon-btn" id="closeModal" aria-label="ปิด"><svg><use href="#i-x"/></svg></button>
+      </div>
+
+      <div class="os-tabs" role="tablist">
+        <button class="os-tab" role="tab" data-os="ios" aria-selected="true">iPhone / iPad</button>
+        <button class="os-tab" role="tab" data-os="android" aria-selected="false">Android</button>
+      </div>
+
+      <div class="os-panel active" id="panel-ios" role="tabpanel">
+        <ol class="steps">
+          <li><span>เปิดหน้านี้ด้วย <b>Safari</b></span></li>
+          <li><span>แตะปุ่ม <span class="kbd"><svg><use href="#i-share"/></svg>แชร์</span> ที่แถบด้านล่าง (หรือด้านบนใน iPad)</span></li>
+          <li><span>เลื่อนลงแล้วเลือก <span class="kbd"><svg><use href="#i-plus-square"/></svg>เพิ่มไปยังหน้าจอโฮม</span></span></li>
+          <li><span>แตะ <b>"เพิ่ม"</b> ที่มุมขวาบน เสร็จเรียบร้อย</span></li>
+        </ol>
+      </div>
+
+      <div class="os-panel" id="panel-android" role="tabpanel">
+        <ol class="steps">
+          <li><span>เปิดหน้านี้ด้วย <b>Chrome</b></span></li>
+          <li><span>แตะเมนู <span class="kbd"><svg><use href="#i-dots"/></svg>เมนู</span> มุมขวาบน</span></li>
+          <li><span>เลือก <span class="kbd">ติดตั้งแอป</span> หรือ <span class="kbd">เพิ่มลงในหน้าจอหลัก</span></span></li>
+          <li><span>ยืนยันด้วยการแตะ <b>"ติดตั้ง"</b></span></li>
+        </ol>
+        <button class="btn-block" id="nativeInstallBtn" hidden data-ripple>ติดตั้งทันที</button>
+      </div>
+
+      <p class="sheet-note">หลังติดตั้งแล้ว ไอคอนจะปรากฏบนหน้าจอโฮม และเปิดแบบเต็มจอเหมือนแอปทั่วไป</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  /* =====================================================================
+     ███  DATA SECTION – แก้ไขข้อมูลจริงที่ส่วนนี้เท่านั้น  ███
+     ===================================================================== */
+
+  /** ตั้งค่าทั่วไปของ Hub */
+  const HUB_CONFIG = {
+    name: "Hub Name Placeholder",
+    version: "1.0.0",
+    lastUpdated: "2025-01-01",
+    credit: "Organization Placeholder",
+    supportUrl: "#",              // เช่น "https://line.me/R/ti/p/@xxxx" หรือ "mailto:help@example.com"
+    openLinksInNewTab: false      // false = เปิดในหน้าเดิม (เหมาะกับ standalone)
+  };
+
+  /** หมวดหมู่ (id ต้องตรงกับ category ใน APPS_DATA) */
+  const CATEGORIES = [
+    { id: "all",    label: "ทั้งหมด" },
+    { id: "public", label: "ทั่วไป" },
+    { id: "staff",  label: "สำหรับเจ้าหน้าที่" },
+    { id: "tools",  label: "เครื่องมือ" },
+    { id: "report", label: "รายงาน" }
+  ];
+
+  /** รูปแบบ Badge ที่รองรับ: "Live" | "New" | "Staff Only" | "Beta" | "" (ไม่แสดง) */
+  const BADGE_STYLES = {
+    "Live": "badge--live",
+    "New": "badge--new",
+    "Staff Only": "badge--staff",
+    "Beta": "badge--beta"
+  };
+
+  /**
+   * ข้อมูลแอป
+   * - icon: id ของ <symbol> ใน SVG sprite (เช่น "icon-doc") หรือ URL รูปภาพ (เช่น "icons/app1.png")
+   * - color: (ไม่บังคับ) สีพื้นหลังไอคอน
+   * - keywords: (ไม่บังคับ) คำค้นเพิ่มเติม
+   */
+  const APPS_DATA = [
+    { id: 1, title: "App Name Placeholder 1", desc: "Short description placeholder สำหรับอธิบายการใช้งานแอปโดยย่อ", icon: "icon-doc",      category: "public", url: "#", badge: "Live",       color: "#1D4ED8" },
+    { id: 2, title: "App Name Placeholder 2", desc: "Short description placeholder...",                                 icon: "icon-calendar", category: "public", url: "#", badge: "New",        color: "#0EA5E9" },
+    { id: 3, title: "App Name Placeholder 3", desc: "Short description placeholder...",                                 icon: "icon-shield",   category: "staff",  url: "#", badge: "Staff Only", color: "#EA580C" },
+    { id: 4, title: "App Name Placeholder 4", desc: "Short description placeholder...",                                 icon: "icon-chart",    category: "report", url: "#", badge: "Live",       color: "#0B1F3A" },
+    { id: 5, title: "App Name Placeholder 5", desc: "Short description placeholder...",                                 icon: "icon-settings", category: "tools",  url: "#", badge: "Beta",       color: "#334E7A" },
+    { id: 6, title: "App Name Placeholder 6", desc: "Short description placeholder...",                                 icon: "icon-user",     category: "staff",  url: "#", badge: "Staff Only", color: "#1E40AF" },
+    { id: 7, title: "App Name Placeholder 7", desc: "Short description placeholder...",                                 icon: "icon-chat",     category: "public", url: "#", badge: "",           color: "#0284C7" },
+    { id: 8, title: "App Name Placeholder 8", desc: "Short description placeholder...",                                 icon: "icon-placeholder", category: "tools", url: "#", badge: "New" }
+  ];
+
+  /* =====================================================================
+     ███  APPLICATION LOGIC – โดยปกติไม่ต้องแก้ไขส่วนนี้  ███
+     ===================================================================== */
+  (() => {
+    "use strict";
+
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+    const state = { category: "all", query: "" };
+
+    const el = {
+      grid: $("#appGrid"), filterBar: $("#filterBar"), search: $("#searchInput"),
+      searchClear: $("#searchClear"), empty: $("#emptyState"), count: $("#resultCount"),
+      sectionTitle: $("#sectionTitle"), toast: $("#toast")
+    };
+
+    /* ---------- Utils ---------- */
+    const escapeHTML = (str = "") => String(str).replace(/[&<>"']/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const normalize = (str = "") => String(str).toLowerCase().normalize("NFC").trim();
+    const debounce = (fn, ms = 120) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+    const catLabel = id => (CATEGORIES.find(c => c.id === id) || {}).label || id;
+
+    let toastTimer;
+    function toast(msg, ms = 2200) {
+      el.toast.textContent = msg;
+      el.toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.toast.classList.remove("show"), ms);
+    }
+
+    /* ---------- Init Static Content ---------- */
+    function initConfig() {
+      $("#hubTitle").textContent = HUB_CONFIG.name;
+      $("#lastUpdated").textContent = `อัปเดตล่าสุด: ${HUB_CONFIG.lastUpdated}`;
+      $("#versionTag").textContent = `v${HUB_CONFIG.version}`;
+      $("#year").textContent = new Date().getFullYear();
+      $("#footerCredit").innerHTML = `© ${new Date().getFullYear()} ${escapeHTML(HUB_CONFIG.credit)}`;
+      $("#supportLink").href = HUB_CONFIG.supportUrl;
+      document.title = HUB_CONFIG.name;
+      $("#statApps").textContent = APPS_DATA.length;
+      $("#statCats").textContent = CATEGORIES.length - 1;
+    }
+
+    /* ---------- Render: Category Filter ---------- */
+    function renderFilters() {
+      el.filterBar.innerHTML = CATEGORIES.map(cat => {
+        const count = cat.id === "all" ? APPS_DATA.length : APPS_DATA.filter(a => a.category === cat.id).length;
+        return `<button class="chip" role="tab" data-ripple data-cat="${escapeHTML(cat.id)}"
+                  aria-selected="${cat.id === state.category}">
+                  ${escapeHTML(cat.label)}<span class="count">${count}</span>
+                </button>`;
+      }).join("");
+    }
+
+    /* ---------- Render: Icon ---------- */
+    function renderIcon(icon) {
+      if (!icon) icon = "icon-placeholder";
+      const isImg = /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(icon) || icon.startsWith("http") || icon.startsWith("data:");
+      return isImg
+        ? `<img src="${escapeHTML(icon)}" alt="" width="32" height="32" loading="lazy" style="border-radius:8px">`
+        : `<svg aria-hidden="true"><use href="#${escapeHTML(icon)}"/></svg>`;
+    }
+
+    /* ---------- Render: App Cards (วนลูปจาก APPS_DATA) ---------- */
+    function getFilteredApps() {
+      const q = normalize(state.query);
+      return APPS_DATA.filter(app => {
+        const matchCat = state.category === "all" || app.category === state.category;
+        if (!matchCat) return false;
+        if (!q) return true;
+        const haystack = normalize([app.title, app.desc, app.badge, catLabel(app.category), ...(app.keywords || [])].join(" "));
+        return q.split(/\s+/).every(term => haystack.includes(term));
+      });
+    }
+
+    function renderApps() {
+      const apps = getFilteredApps();
+      const target = HUB_CONFIG.openLinksInNewTab ? ` target="_blank" rel="noopener"` : "";
+
+      el.grid.innerHTML = apps.map((app, i) => {
+        const badgeClass = BADGE_STYLES[app.badge] || "";
+        return `
+          <article class="app-card" data-ripple data-url="${escapeHTML(app.url)}" style="--i:${i}">
+            <div class="app-icon" style="${app.color ? `--icon-bg:${escapeHTML(app.color)}` : ""}">
+              ${renderIcon(app.icon)}
+            </div>
+            <div class="app-body">
+              <div class="app-top">
+                <h3 class="app-title">${escapeHTML(app.title)}</h3>
+                ${app.badge ? `<span class="badge ${badgeClass}">${escapeHTML(app.badge)}</span>` : ""}
+              </div>
+              <p class="app-desc">${escapeHTML(app.desc)}</p>
+              <div class="app-footer">
+                <div class="tags"><span class="tag-cat">${escapeHTML(catLabel(app.category))}</span></div>
+                <a class="btn-launch" href="${escapeHTML(app.url)}"${target} data-ripple
+                   aria-label="เปิดใช้งาน ${escapeHTML(app.title)}">
+                  เปิดใช้งาน
+                </a>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+
+      el.empty.classList.toggle("show", apps.length === 0);
+      el.count.textContent = `${apps.length} แอป`;
+      el.sectionTitle.textContent = state.category === "all" ? "แอปทั้งหมด" : catLabel(state.category);
+    }
+
+    /* ---------- Events: Filter / Search / Card ---------- */
+    function bindEvents() {
+      el.filterBar.addEventListener("click", e => {
+        const chip = e.target.closest(".chip");
+        if (!chip) return;
+        state.category = chip.dataset.cat;
+        $$(".chip", el.filterBar).forEach(c => c.setAttribute("aria-selected", c === chip));
+        chip.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        renderApps();
+      });
+
+      const onSearch = debounce(() => { state.query = el.search.value; renderApps(); }, 100);
+      el.search.addEventListener("input", () => {
+        el.searchClear.classList.toggle("show", el.search.value.length > 0);
+        onSearch();
+      });
+      el.search.addEventListener("keydown", e => { if (e.key === "Enter") el.search.blur(); });
+      el.searchClear.addEventListener("click", () => {
+        el.search.value = ""; state.query = "";
+        el.searchClear.classList.remove("show");
+        renderApps(); el.search.focus();
+      });
+
+      // คลิกทั้งการ์ด = เปิดแอป
+      el.grid.addEventListener("click", e => {
+        if (e.target.closest(".btn-launch")) return;
+        const card = e.target.closest(".app-card");
+        if (!card) return;
+        const url = card.dataset.url;
+        if (!url || url === "#") { toast("แอปนี้ยังไม่ได้ตั้งค่าลิงก์"); return; }
+        HUB_CONFIG.openLinksInNewTab ? window.open(url, "_blank", "noopener") : (location.href = url);
+      });
+      el.grid.addEventListener("click", e => {
+        const btn = e.target.closest(".btn-launch");
+        if (btn && btn.getAttribute("href") === "#") { e.preventDefault(); toast("แอปนี้ยังไม่ได้ตั้งค่าลิงก์"); }
+      });
+    }
+
+    /* ---------- Micro-interaction: Ripple ---------- */
+    function initRipple() {
+      document.addEventListener("pointerdown", e => {
+        const host = e.target.closest("[data-ripple]");
+        if (!host) return;
+        // ไม่ซ้อน ripple การ์ด ถ้ากดที่ปุ่มในการ์ด
+        const inner = e.target.closest(".btn-launch");
+        const target = inner && host.classList.contains("app-card") ? inner : host;
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const r = document.createElement("span");
+        r.className = "ripple";
+        r.style.width = r.style.height = `${size}px`;
+        r.style.left = `${e.clientX - rect.left - size / 2}px`;
+        r.style.top = `${e.clientY - rect.top - size / 2}px`;
+        target.appendChild(r);
+        r.addEventListener("animationend", () => r.remove());
+      }, { passive: true });
+    }
+
+    /* ---------- Network Status ---------- */
+    function initNetworkStatus() {
+      const chip = $("#netStatus"), label = $(".status-label", chip);
+      const update = () => {
+        const online = navigator.onLine;
+        chip.classList.toggle("offline", !online);
+        label.textContent = online ? "ออนไลน์" : "ออฟไลน์";
+      };
+      window.addEventListener("online", () => { update(); toast("กลับมาออนไลน์แล้ว"); });
+      window.addEventListener("offline", () => { update(); toast("ขาดการเชื่อมต่อ – ใช้งานโหมดออฟไลน์"); });
+      update();
+    }
+
+    /* =====================================================
+       PLATFORM DETECTION
+       ===================================================== */
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+
+    function detectInAppBrowser() {
+      if (/\bLine\//i.test(ua)) return "LINE";
+      if (/FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua)) return /Messenger|FBAN\/Messenger|MESSENGER/i.test(ua) ? "Messenger" : "Facebook";
+      if (/Messenger/i.test(ua)) return "Messenger";
+      if (/Instagram/i.test(ua)) return "Instagram";
+      if (/TikTok|musical_ly|BytedanceWebview/i.test(ua)) return "TikTok";
+      if (/; wv\)/.test(ua) && isAndroid) return "WebView";
+      return null;
+    }
+
+    /* ---------- In-App Browser Banner ---------- */
+    function initInAppBanner() {
+      const app = detectInAppBrowser();
+      if (!app || isStandalone) return;
+      if (sessionStorage.getItem("inapp-dismissed")) return;
+
+      const banner = $("#inAppBanner");
+      const browser = isIOS ? "Safari" : "Chrome";
+      $("#inAppMsg").innerHTML =
+        `คุณกำลังเปิดผ่าน <b>${app}</b> ซึ่งไม่รองรับ "เพิ่มลงหน้าจอโฮม" ` +
+        `กรุณาแตะ <b>⋯</b> หรือ <b>เมนู</b> แล้วเลือก <b>"เปิดใน ${browser}"</b>`;
+      banner.classList.add("show");
+      document.body.classList.add("has-inapp");
+
+      $("#inAppOpenBtn").addEventListener("click", () => {
+        const url = location.href;
+        if (app === "LINE") {
+          // LINE รองรับพารามิเตอร์ openExternalBrowser=1
+          const u = new URL(url);
+          u.searchParams.set("openExternalBrowser", "1");
+          location.href = u.toString();
+        } else if (isAndroid) {
+          // Android: ใช้ intent:// เพื่อเปิด Chrome
+          const clean = url.replace(/^https?:\/\//, "");
+          location.href = `intent://${clean}#Intent;scheme=https;package=com.android.chrome;end`;
+        } else {
+          // iOS (Facebook/Messenger): ไม่มีวิธีบังคับเปิด Safari ได้ ให้คัดลอกลิงก์แทน
+          copyLink();
+          toast(`แตะ ⋯ แล้วเลือก "เปิดใน Safari"`, 3500);
+        }
+      });
+      $("#inAppCopyBtn").addEventListener("click", copyLink);
+      $("#inAppClose").addEventListener("click", () => {
+        banner.classList.remove("show");
+        document.body.classList.remove("has-inapp");
+        sessionStorage.setItem("inapp-dismissed", "1");
+      });
+    }
+
+    async function copyLink() {
+      const url = location.href.replace(/[?&]openExternalBrowser=1/, "");
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = url; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch {}
+        ta.remove();
+      }
+      toast("คัดลอกลิงก์แล้ว นำไปวางในเบราว์เซอร์ได้เลย");
+    }
+
+    /* =====================================================
+       PWA INSTALL (Banner + Modal + beforeinstallprompt)
+       ===================================================== */
+    let deferredPrompt = null;
+
+    function openModal(os) {
+      const modal = $("#installModal");
+      selectOsTab(os || (isAndroid ? "android" : "ios"));
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      const modal = $("#installModal");
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    function selectOsTab(os) {
+      $$(".os-tab").forEach(t => t.setAttribute("aria-selected", t.dataset.os === os));
+      $$(".os-panel").forEach(p => p.classList.toggle("active", p.id === `panel-${os}`));
+    }
+
+    async function triggerInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        $("#nativeInstallBtn").hidden = true;
+        if (outcome === "accepted") { toast("กำลังติดตั้ง..."); $("#installBanner").classList.remove("show"); }
+      } else {
+        openModal();
+      }
+    }
+
+    function initInstall() {
+      if (isStandalone) return;
+
+      window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        $("#nativeInstallBtn").hidden = false;
+        if (!localStorage.getItem("install-banner-dismissed") && !detectInAppBrowser()) {
+          $("#installBanner").classList.add("show");
+        }
+      });
+
+      // iOS ไม่มี beforeinstallprompt → แสดงแบนเนอร์เองเมื่ออยู่ใน Safari
+      if (isIOS && !detectInAppBrowser() && !localStorage.getItem("install-banner-dismissed")) {
+        setTimeout(() => $("#installBanner").classList.add("show"), 1200);
+      }
+
+      window.addEventListener("appinstalled", () => {
+        $("#installBanner").classList.remove("show");
+        toast("ติดตั้งเรียบร้อย");
+      });
+
+      $("#installBannerBtn").addEventListener("click", triggerInstall);
+      $("#installBannerClose").addEventListener("click", () => {
+        $("#installBanner").classList.remove("show");
+        localStorage.setItem("install-banner-dismissed", "1");
+      });
+      $("#openInstallGuide").addEventListener("click", () => openModal());
+      $("#footerInstall").addEventListener("click", () => openModal());
+      $("#nativeInstallBtn").addEventListener("click", triggerInstall);
+      $("#closeModal").addEventListener("click", closeModal);
+      $("#installModal").addEventListener("click", e => { if (e.target.id === "installModal") closeModal(); });
+      document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+      $$(".os-tab").forEach(t => t.addEventListener("click", () => selectOsTab(t.dataset.os)));
+    }
+
+    /* =====================================================
+       SERVICE WORKER REGISTRATION + UPDATE FLOW
+       ===================================================== */
+    function initServiceWorker() {
+      const checkBtn = $("#checkUpdate");
+      if (!("serviceWorker" in navigator)) { checkBtn.hidden = true; return; }
+
+      window.addEventListener("load", async () => {
+        try {
+          const reg = await navigator.serviceWorker.register("sw.js", { scope: "./" });
+
+          reg.addEventListener("updatefound", () => {
+            const nw = reg.installing;
+            nw && nw.addEventListener("statechange", () => {
+              if (nw.state === "installed" && navigator.serviceWorker.controller) {
+                toast("มีเวอร์ชันใหม่ กำลังอัปเดต...");
+                nw.postMessage({ type: "SKIP_WAITING" });
+              }
+            });
+          });
+
+          checkBtn.addEventListener("click", async () => {
+            toast("กำลังตรวจสอบอัปเดต...");
+            await reg.update();
+            setTimeout(() => { if (!reg.installing && !reg.waiting) toast("คุณใช้เวอร์ชันล่าสุดแล้ว"); }, 1500);
+          });
+        } catch (err) {
+          console.warn("SW registration failed:", err);
+        }
+      });
+
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (refreshing) return;
+        refreshing = true;
+        location.reload();
+      });
+    }
+
+    /* ---------- Boot ---------- */
+    initConfig();
+    renderFilters();
+    renderApps();
+    bindEvents();
+    initRipple();
+    initNetworkStatus();
+    initInAppBanner();
+    initInstall();
+    initServiceWorker();
+  })();
+  </script>
+</body>
+</html>
