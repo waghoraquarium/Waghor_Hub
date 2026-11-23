@@ -7,8 +7,8 @@
   <title>Waghor Hub | ศูนย์รวมเว็บแอปพลิเคชัน หว้ากอ</title>
   <meta name="description" content="Waghor Hub – ศูนย์รวมเว็บแอปพลิเคชัน สื่อการเรียนรู้ และระบบงาน อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์" />
 
-  <!-- ===== Theme Color (Prachuap Daylight — Deep Andaman Teal) ===== -->
-  <meta name="theme-color" content="#0F4C5C" />
+  <!-- ===== Theme Color (Waghor Navy Blue) ===== -->
+  <meta name="theme-color" content="#0B1F3A" />
   <meta name="color-scheme" content="light" />
 
   <!-- ===== PWA Manifest ===== -->
@@ -34,49 +34,49 @@
 
   <style>
     /* =========================================================================
-       1) DESIGN TOKENS — Prachuap Daylight Portal (60% Sand / 30% White / 10% Teal & Coral)
+       1) DESIGN TOKENS — Waghor Classic Navy & Ocean Blue (60% Canvas / 30% White / 10% Navy & Blue)
        ========================================================================= */
     :root {
-      --canvas: #FAF8F5;
+      --canvas: #F6F8FB;
       --surface: #FFFFFF;
-      --surface-2: #F3EFE7;
-      --surface-hover: #FDFBF7;
-      --border: #E8E1D5;
-      --border-strong: #D4C9B8;
+      --surface-2: #EEF2F7;
+      --surface-hover: #F8FAFC;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
 
-      --teal-950: #0A333E;
-      --teal-900: #0F4C5C;
-      --teal-800: #155E75;
-      --teal-700: #0E7490;
-      --teal-100: #E0F2F5;
+      --teal-950: #071527;
+      --teal-900: #0B1F3A;
+      --teal-800: #132D50;
+      --teal-700: #1E3A5F;
+      --teal-100: #E6F3FD;
 
-      --coral-600: #C4491E;
-      --coral-500: #E05A2B;
-      --coral-50: #FFF1EB;
+      --coral-600: #1E40AF;
+      --coral-500: #1D4ED8;
+      --coral-50: #EFF6FF;
 
-      --ink: #143642;
-      --ink-2: #4A5D66;
-      --muted: #667880;
+      --ink: #0B1F3A;
+      --ink-2: #475569;
+      --muted: #5B6B80;
 
-      --live-fg: #0F766E;
-      --live-bg: #CCFBF1;
+      --live-fg: #047857;
+      --live-bg: #ECFDF5;
       --new-fg: #0369A1;
       --new-bg: #E0F2FE;
       --staff-fg: #C2410C;
-      --staff-bg: #FFEDD5;
+      --staff-bg: #FFF4EC;
       --beta-fg: #475569;
       --beta-bg: #F1F5F9;
-      --fav-fg: #D97706;
-      --fav-bg: #FEF3C7;
+      --fav-fg: #CA8A04;
+      --fav-bg: #FEF9C3;
 
       --r-sm: 10px;
       --r-md: 14px;
       --r-lg: 22px;
       --r-pill: 999px;
 
-      --shadow: 0 2px 6px rgba(20,54,66,.05), 0 10px 24px rgba(20,54,66,.04);
-      --shadow-hover: 0 8px 20px rgba(15,76,92,.09), 0 16px 36px rgba(15,76,92,.07);
-      --shadow-hero: 0 14px 36px rgba(15,76,92,.20);
+      --shadow: 0 1px 3px rgba(11,31,58,.06), 0 6px 18px rgba(11,31,58,.04);
+      --shadow-hover: 0 6px 16px rgba(11,31,58,.08), 0 16px 34px rgba(11,31,58,.08);
+      --shadow-hero: 0 12px 34px rgba(11,31,58,.18);
 
       --ease: cubic-bezier(.22, 1, .36, 1);
       --dur: 220ms;
@@ -101,7 +101,7 @@
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.55;
-      background: var(--canvas);
+      background: linear-gradient(180deg, #EDF3FC 0%, var(--canvas) 360px, var(--canvas) 100%);
       color: var(--ink);
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
@@ -147,7 +147,7 @@
       color: #FFFFFF;
       border: 1px solid var(--border);
       padding: 4px;
-      box-shadow: 0 3px 10px rgba(15,76,92,.14);
+      box-shadow: 0 3px 10px rgba(11,31,58,.12);
       overflow: hidden;
     }
     .brand-logo.has-img { background: #FFFFFF; }
@@ -205,7 +205,10 @@
       margin: 20px 0 20px;
       padding: 24px 22px;
       border-radius: 24px;
-      background: linear-gradient(135deg, var(--teal-900) 0%, var(--teal-800) 60%, var(--teal-700) 100%);
+      background:
+        radial-gradient(circle at 86% 18%, rgba(56, 189, 248, .26) 0%, transparent 46%),
+        radial-gradient(circle at 12% 92%, rgba(37, 99, 235, .28) 0%, transparent 44%),
+        linear-gradient(135deg, #071527 0%, #0E2A4F 48%, #1B4B8A 82%, #1D4ED8 100%);
       color: #FFFFFF;
       box-shadow: var(--shadow-hero);
     }
@@ -302,7 +305,7 @@
       display: none; align-items: center; gap: 12px;
       margin: 0 0 18px; padding: 14px 16px;
       border-radius: var(--r-lg);
-      background: var(--teal-100); border: 1px solid rgba(15,76,92,.18);
+      background: var(--teal-100); border: 1px solid #BFDBFE;
     }
     .install-banner.show { display: flex; }
     .install-banner .ib-icon {
@@ -348,7 +351,7 @@
     .search-input::placeholder { color: var(--muted); }
     .search-input:focus {
       outline: none; border-color: var(--teal-900);
-      box-shadow: 0 0 0 4px rgba(15,76,92,.12);
+      box-shadow: 0 0 0 4px rgba(29,78,216,.12);
     }
     .search-input::-webkit-search-cancel-button { display: none; }
     .search-clear {
@@ -383,7 +386,9 @@
       font-variant-numeric: tabular-nums;
     }
     .chip[aria-selected="true"] {
-      background: var(--teal-900); border-color: var(--teal-900); color: #FFFFFF;
+      background: linear-gradient(135deg, #0B1F3A 0%, #1B4B8A 100%);
+      border-color: #163C6E; color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(11,31,58,.18);
     }
     .chip[aria-selected="true"] svg { opacity: 1; }
 
@@ -436,7 +441,7 @@
     .app-card:hover .app-icon { transform: scale(1.06) translateY(-1px); }
     .app-icon img {
       width: 100%; height: 100%; object-fit: contain;
-      filter: drop-shadow(0 6px 14px rgba(15,76,92,.18));
+      filter: drop-shadow(0 6px 14px rgba(11,31,58,.16));
     }
     .app-icon .icon-fallback { width: 32px; height: 32px; }
     .app-icon.has-img .icon-fallback { display: none; }
@@ -498,14 +503,15 @@
     .btn-launch {
       flex-shrink: 0; min-height: 44px; padding: 0 15px; border-radius: var(--r-md);
       background: var(--coral-50); color: var(--coral-600);
-      border: 1px solid rgba(224,90,43,.28);
+      border: 1px solid rgba(29,78,216,.28);
       font-size: .875rem; font-weight: 600;
       display: inline-flex; align-items: center; gap: 6px;
       transition: background var(--dur), color var(--dur), border-color var(--dur), transform 120ms ease;
     }
     .btn-launch svg { width: 14px; height: 14px; transition: transform var(--dur) var(--ease); }
     .btn-launch:hover, .app-card:hover .btn-launch {
-      background: var(--coral-500); border-color: var(--coral-500); color: #FFFFFF;
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+      border-color: #1D4ED8; color: #FFFFFF;
     }
     .btn-launch:hover svg, .app-card:hover .btn-launch svg { transform: translate(2px, -2px); }
     .btn-launch:active { transform: scale(.97); }
@@ -558,7 +564,7 @@
        ========================================================================= */
     .modal-backdrop {
       position: fixed; inset: 0; z-index: 100;
-      background: rgba(10,51,62,.52);
+      background: rgba(11,31,58,.50);
       opacity: 0; pointer-events: none; transition: opacity var(--dur);
       display: flex; align-items: flex-end; justify-content: center; padding: 12px;
     }
@@ -630,7 +636,7 @@
       width: 216px; height: 216px; margin: 0 auto 14px; padding: 12px;
       background: #FFFFFF; border: 1px solid var(--border-strong);
       border-radius: 18px; display: grid; place-items: center;
-      box-shadow: 0 4px 16px rgba(15,76,92,.08);
+      box-shadow: 0 4px 16px rgba(11,31,58,.08);
     }
     .qr-box svg { width: 100%; height: 100%; }
     .qr-url-text {
@@ -650,7 +656,7 @@
       padding: 10px 18px; border-radius: var(--r-md);
       background: var(--teal-950); color: #FFFFFF;
       font-size: .875rem; font-weight: 500;
-      box-shadow: 0 10px 32px rgba(10,51,62,.26);
+      box-shadow: 0 10px 32px rgba(11,31,58,.22);
       transition: transform 280ms var(--ease), opacity 200ms ease;
       max-width: calc(100vw - 32px);
     }
@@ -670,8 +676,12 @@
       min-height: 44px; display: inline-flex; align-items: center;
     }
     .footer-links a:hover, .footer-links button:hover { color: var(--coral-500); }
+    .dev-credit {
+      margin-top: 6px; font-size: .8rem; color: var(--ink-2); line-height: 1.55;
+    }
+    .dev-credit strong { color: var(--ink); font-weight: 600; }
     .version-tag {
-      display: inline-block; margin-top: 4px;
+      display: inline-block; margin-top: 6px;
       font-family: var(--font-mono); font-size: .74rem;
     }
 
@@ -829,7 +839,8 @@
         <button type="button" id="checkUpdate">ตรวจสอบอัปเดต</button>
       </div>
       <p id="footerCredit"></p>
-      <span class="version-tag" id="versionTag">v2.0.0</span>
+      <p class="dev-credit" id="devCredit"></p>
+      <span class="version-tag" id="versionTag">v2.0.2</span>
     </footer>
   </main>
 
@@ -922,9 +933,10 @@
   const HUB_CONFIG = {
     name: "Waghor Hub",
     subtitle: "อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จ.ประจวบคีรีขันธ์",
-    version: "2.0.0",
+    version: "2.0.2",
     lastUpdated: "23 พ.ย. 2026",
     credit: "อุทยานวิทยาศาสตร์พระจอมเกล้า ณ หว้ากอ จังหวัดประจวบคีรีขันธ์",
+    developer: "นราธิป ลีธีระ (นักวิชาการศึกษา) งานส่งเสริมวิชาการ และพัฒนาสื่อ กลุ่มพิพิธภัณฑ์สัตว์น้ำ",
     supportUrl: "https://www.waghor.go.th",
     openLinksInNewTab: true
   };
@@ -1019,7 +1031,7 @@
       category: "saraban",
       url: "http://118.172.207.96:93/intranet/login.php",
       badge: "Staff Only",
-      color: "#0F4C5C",
+      color: "#0B1F3A",
       officeHoursOnly: true,
       keywords: ["saraban", "สารบรรณ", "หนังสือราชการ", "intranet", "เวลาราชการ", "เจ้าหน้าที่", "login"]
     }
@@ -1247,7 +1259,7 @@
           if (grid[r][c] === 1) d += `M${c + quiet},${r + quiet}h1v1h-1z`;
         }
       }
-      return `<svg viewBox="0 0 ${vb} ${vb}" role="img" aria-label="QR Code"><rect width="${vb}" height="${vb}" fill="#FFFFFF"/><path d="${d}" fill="#0F4C5C"/></svg>`;
+      return `<svg viewBox="0 0 ${vb} ${vb}" role="img" aria-label="QR Code"><rect width="${vb}" height="${vb}" fill="#FFFFFF"/><path d="${d}" fill="#0B1F3A"/></svg>`;
     }
 
     /* ---------- Init Static Content & Logo Fallback ---------- */
@@ -1256,6 +1268,12 @@
       $("#hubSubtitle").textContent = HUB_CONFIG.subtitle;
       $("#versionTag").textContent = `v${HUB_CONFIG.version}`;
       $("#footerCredit").textContent = `© ${new Date().getFullYear()} ${HUB_CONFIG.credit}`;
+      const devEl = $("#devCredit");
+      devEl.textContent = "";
+      devEl.appendChild(document.createTextNode("พัฒนาโดย "));
+      const devStrong = document.createElement("strong");
+      devStrong.textContent = HUB_CONFIG.developer;
+      devEl.appendChild(devStrong);
       $("#supportLink").href = HUB_CONFIG.supportUrl;
       document.title = `${HUB_CONFIG.name} | ${HUB_CONFIG.subtitle}`;
 
@@ -1307,8 +1325,8 @@
     function buildIconNode(app, sizePx, wrapperClass) {
       const box = document.createElement("div");
       box.className = wrapperClass;
-      box.style.setProperty("--icon-bg", app.color || "#0F4C5C");
-      if (wrapperClass === "pinned-mini-icon") box.style.background = app.color || "#0F4C5C";
+      box.style.setProperty("--icon-bg", app.color || "#0B1F3A");
+      if (wrapperClass === "pinned-mini-icon") box.style.background = app.color || "#0B1F3A";
 
       const fallbackSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       fallbackSvg.setAttribute("class", "icon-fallback");
