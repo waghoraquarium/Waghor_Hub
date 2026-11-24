@@ -15,3 +15,6 @@ https://waghoraquarium.github.io/Waghor_Vote/
 
 ระบบสารบรรณ Intranet (เปิดเฉพาะวันเวลาราชการ)
 http://118.172.207.96:93/intranet/login.php
+
+แปลงไฟล์ภาพ HEIC เป็น JPG
+https://waghoraquarium.github.io/WG_HEICtoJPG/

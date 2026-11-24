@@ -1,4 +1,4 @@
-const CACHE_NAME = 'waghor-hub-v2.0.2';
+const CACHE_NAME = 'waghor-hub-v2.0.4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ const ASSETS_TO_CACHE = [
   './icons/app-schedule.png?v=5',
   './icons/app-best-tank.png?v=5',
   './icons/app-saraban.png?v=5',
+  './icons/app-heic-jpg.png?v=1',
   'https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap'
 ];
 
