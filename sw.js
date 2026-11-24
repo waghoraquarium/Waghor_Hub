@@ -1,13 +1,13 @@
-const CACHE_NAME = 'waghor-hub-v2.0.4';
+const CACHE_NAME = 'waghor-hub-v2.0.5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  './icons/Logo.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png',
-  './icons/favicon.png',
+  './icons/Logo.png?v=2',
+  './icons/icon-192.png?v=2',
+  './icons/icon-512.png?v=2',
+  './icons/apple-touch-icon.png?v=2',
+  './icons/favicon.png?v=2',
   './icons/app-aqua-quest.png?v=5',
   './icons/app-daily-check.png?v=5',
   './icons/app-maintenance.png?v=2',
