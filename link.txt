@@ -1,5 +1,10 @@
-Waghor Aqua Quest Admin Edition
-https://waghoraquarium.github.io/waghoraquarium_For_Admin/
+Waghor Aqua Quest 
+Admin Edition
+https://waghoraquarium.github.io/waghoraquarium_For_Admin
+Nopass
+https://waghoraquarium.github.io/waghoraquarium_test_NoPass/
+Pass
+https://waghoraquarium.github.io/waghoraquarium/
 
 ระบบตรวจเช็คนิทรรศการประจำวัน
 https://waghoraquarium.github.io/Waghor_Daily-Check/
