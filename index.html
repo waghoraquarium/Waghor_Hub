@@ -1430,15 +1430,16 @@
     /* ---------- Render: App Cards ---------- */
     function getFilteredApps() {
       const q = normalize(state.query);
+      const favSet = new Set(state.favorites);
       return APPS_DATA.filter(app => {
         const matchCat = state.category === "all" ? true
-          : state.category === "favorite" ? state.favorites.includes(app.id)
+          : state.category === "favorite" ? favSet.has(app.id)
           : app.category === state.category;
         if (!matchCat) return false;
         if (!q) return true;
         const haystack = normalize([app.title, app.desc, app.badge, catLabel(app.category), ...(app.keywords || [])].join(" "));
         return q.split(/\s+/).every(term => haystack.includes(term));
-      });
+      }).sort((a, b) => Number(favSet.has(b.id)) - Number(favSet.has(a.id)));
     }
 
     function renderApps() {
